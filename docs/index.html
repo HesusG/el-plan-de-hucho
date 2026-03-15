@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Plan de Hucho</title>
+  <meta name="description" content="Una novela gráfica interactiva sobre un sueño rebelde narrado por Paco y orquestado por Hucho.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Courier+Prime:ital@0;1&family=Permanent+Marker&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Progress Bar -->
+  <div class="progress-bar" aria-hidden="true"></div>
+
+  <!-- Flash overlay for missile effect -->
+  <div class="flash-overlay" aria-hidden="true"></div>
+
+  <main class="comic-page">
+
+    <!-- ═══════════════════════════════════════
+         COVER — chimp_mask.png full bleed
+         ═══════════════════════════════════════ -->
+    <section class="panel panel--cover" aria-label="Portada">
+      <div class="panel__bg" style="background-image: url('images/chimp_mask.png');"></div>
+      <div class="panel__scrim panel__scrim--gradient"></div>
+      <div class="panel__overlay ben-day"></div>
+      <div class="panel__frame"></div>
+
+      <div class="panel__content text-center">
+        <p class="whisper" data-reveal="fade-up" style="margin-bottom: 1.5rem;">
+          «Toda revolución empieza con un sueño que alguien confunde con un plan.»
+          — Arturo Belano, en una servilleta de cantina que nadie recogió
+        </p>
+        <h1 class="cover-title" data-reveal="scale-in" data-delay="300">El Plan<br>de Hucho</h1>
+        <p class="cover-tagline" data-reveal="fade-up" data-delay="600">
+          Todo sistema tiene una grieta. Todo sueño, una verdad.
+          Y toda verdad, un imbécil dispuesto a morir por ella.
+        </p>
+        <p class="cover-subtitle" data-reveal="fade-up" data-delay="900">
+          Esto no es ficción. Es un recuerdo que todavía no ha ocurrido.
+          Si estás leyendo esto, ya es demasiado tarde para detenernos.
+        </p>
+        <div class="scroll-indicator" data-reveal="fade-up" data-delay="1200">▼</div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         PANEL 1: LA MÁSCARA
+         ═══════════════════════════════════════ -->
+    <section class="panel" id="panel-mascara" aria-label="La Máscara">
+      <div class="panel__bg" style="background-image: url('images/chimp_mask.png');"></div>
+      <div class="panel__scrim panel__scrim--dark"></div>
+      <div class="panel__overlay halftone"></div>
+      <div class="panel__frame"></div>
+
+      <div class="panel__content stack">
+        <div class="caption-box" data-reveal="slide-right">
+          Capítulo I — La Máscara
+        </div>
+
+        <div class="prose" data-reveal="fade-up" data-delay="200">
+          <p>Soñé con Hucho tres noches seguidas antes de que apareciera la caja. La primera noche me habló desde el fondo de una alberca vacía, con la voz de mi padre muerto y los ojos de un perro atropellado en la carretera a Querétaro. No dijo palabras — dijo certezas. Las certezas no se dicen, se instalan en el cuerpo como una fiebre que no baja.</p>
+          <p>La segunda noche estaba sentado en mi cama cuando desperté. O creí despertar. Olía a gasolina y a copal, esa mezcla que solo existe en los mercados de Tepito a las seis de la mañana cuando los puestos abren y el mundo todavía no ha decidido si vale la pena seguir girando.</p>
+          <p>La tercera noche no soñé nada. Y eso fue peor. Porque el silencio de Hucho pesaba más que su voz.</p>
+        </div>
+
+        <div class="manifesto" data-reveal="fade-up" data-delay="400">
+          <p>Toda identidad es una imposición del mercado. Tu nombre es una marca registrada que no te pertenece. Tu cara es un código de barras que el sistema lee cada mañana cuando entras al metro, cuando desbloqueas tu teléfono, cuando sonríes para la cámara de seguridad del OXXO.</p>
+          <p>La máscara no oculta. La máscara revela. Solo detrás de una cara falsa puedes ser quien realmente eres.</p>
+        </div>
+
+        <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="500">
+          <p><strong>Paco:</strong> Hucho me habló en sueños. No con palabras — con certezas. Dijo que el golpe ya estaba decidido. Que solo faltaba la cara.</p>
+          <p>Una caja llegó a mis manos un martes. Sin remitente. Sin nota. Solo una gorra-máscara de chimpancé café con visera roja, envuelta en periódico del día anterior. El periódico hablaba de la inflación. Qué pinche ironía.</p>
+        </div>
+
+        <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="600">
+          <p>Me puse el traje azul grisáceo — el único que tengo, el que usé en el funeral de mi abuela y en la boda de un primo que ya se divorció. Ese traje ha visto más fracasos que éxitos. Perfecto para esto.</p>
+          <p>La máscara olía a plástico nuevo y a sudor viejo, como si alguien la hubiera usado antes en otro sueño, en otra vida, en otro intento fallido de romper la máquina.</p>
+        </div>
+
+        <div class="inner-voice" data-reveal="fade-up" data-delay="700">
+          <div class="inner-voice__a">
+            <span class="inner-voice__label">Hucho — el visionario</span>
+            <p>«El oprimido que acepta su opresión se convierte en cómplice del opresor. Freire lo dijo. Yo lo repito. El espectáculo ha reemplazado la vida — Debord lo vio venir.»</p>
+            <p>«Esta máscara es un acto político. Cada paso a partir de ahora es una declaración de guerra.»</p>
+          </div>
+          <div class="inner-voice__b">
+            <span class="inner-voice__label">Hucho — el cobarde</span>
+            <p>(¿Y si me reconocen? Mamá va a ver esto en las noticias. Dios. ¿Cerré la puerta del departamento? ¿Pagué el gas? El gas. Carajo. Si me meten al bote quién va a pagar el gas.)</p>
+          </div>
+        </div>
+
+        <div class="thought-bubble" data-reveal="scale-in" data-delay="800">
+          <p>El sistema no se reforma. Se interrumpe. Y toda interrupción empieza con alguien lo suficientemente estúpido como para creer que un chimpancé de plástico puede cambiar el mundo.</p>
+        </div>
+
+        <p class="whisper" data-reveal="fade-up" data-delay="900">
+          (tengo miedo tengo miedo tengo miedo pero el miedo es solo el cuerpo pidiendo permiso para ser valiente)
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         PANEL 2: EL GOLPE
+         ═══════════════════════════════════════ -->
+    <section class="panel" id="panel-golpe" aria-label="El Golpe">
+      <div class="panel__bg" style="background-image: url('images/bank_heist.png');"></div>
+      <div class="panel__scrim panel__scrim--dark"></div>
+      <div class="panel__overlay halftone"></div>
+      <div class="panel__frame"></div>
+
+      <div class="panel__content stack">
+        <div class="caption-box" data-reveal="slide-right">
+          Capítulo II — El Golpe
+        </div>
+
+        <div class="prose" data-reveal="fade-up" data-delay="200">
+          <p>El banco olía a perfume caro y a miedo barato. Ese olor específico de los lugares donde la gente guarda lo que no se merece, custodiado por guardias que ganan menos en un mes que lo que cualquier ejecutivo gasta en una cena. El piso de mármol reflejaba mi cara de chimpancé como un espejo sucio de un baño de terminal de autobuses.</p>
+          <p>Entré como quien entra a misa: con fe ciega y las manos limpias. El elevador tardó cuarenta y tres segundos en subir veintidós pisos. Los conté. Cada segundo era un latido. Cada latido era una oración a un dios en el que dejé de creer a los catorce años, cuando vi a mi viejo vender su camioneta para pagar una deuda que nunca fue suya.</p>
+        </div>
+
+        <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="400">
+          <p><strong>Paco:</strong> Piso 22. Hucho estaba ahí, sentado en una silla giratoria como si fuera el CEO de la revolución. Cansado pero concentrado. Tenía esa mirada que tienen los perros antes de morder: tranquila por fuera, temblando por dentro.</p>
+        </div>
+
+        <div class="speech-bubble speech-bubble--hucho" data-reveal="fade-up" data-delay="500">
+          <p><strong>Hucho:</strong> <em>Llegaste tarde. El sistema no espera a nadie, Paco. Ni siquiera a sus verdugos.</em></p>
+        </div>
+
+        <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="600">
+          <p><strong>Paco:</strong> El tráfico, güey. Hasta para robar un banco hay que aguantar el tráfico de esta ciudad de mierda.</p>
+        </div>
+
+        <div class="inner-voice" data-reveal="fade-up" data-delay="700">
+          <div class="inner-voice__a">
+            <span class="inner-voice__label">Hucho — el visionario</span>
+            <p>«La caja fuerte es una metáfora perfecta. Todo lo que el capital protege es, por definición, robado. Devolver lo robado no es robo — es justicia poética con intereses compuestos.»</p>
+          </div>
+          <div class="inner-voice__b">
+            <span class="inner-voice__label">Hucho — el cobarde</span>
+            <p>(Las manos me tiemblan. Son las 3:47 PM. A esta hora normalmente estoy comiendo un gansito en la oficina. Un gansito. Dios mío. ¿Y si mejor nos vamos? Podemos decir que fue un simulacro. Un performance artístico. Un error de GPS.)</p>
+          </div>
+        </div>
+
+        <div class="fragment" data-reveal="fade-up" data-delay="800">
+          <span>La caja se abrió con un clic que sonó como un hueso rompiéndose.</span>
+          <span>Billetes. Fajos. Verde sobre verde sobre verde.</span>
+          <span>El dinero no huele a nada. Eso es lo más aterrador.</span>
+          <span>Debería oler a sangre, a sudor, a las manos de todos los que lo tocaron antes.</span>
+        </div>
+
+        <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="900">
+          <p><strong>Paco:</strong> 72,000 pesos. No era la revolución. Era una herida pequeña en un cuerpo enorme. Pero las heridas pequeñas también infectan. Pregúntale a cualquier diabético.</p>
+        </div>
+
+        <div class="sfx-wrap" data-reveal="slam" data-delay="1000">
+          <span class="sfx sfx--crack" data-reveal="slam" data-delay="1000">¡CRACK!</span>
+        </div>
+
+        <div class="manifesto" data-reveal="fade-up" data-delay="1100">
+          <p>El dinero es el lenguaje del control. Cada billete es una orden: trabaja, consume, obedece, muere. Cada transacción es un acto de sumisión voluntaria. El asalto no es un crimen — es una corrección gramatical en un idioma que nadie pidió hablar.</p>
+        </div>
+
+        <div class="speech-bubble speech-bubble--hucho" data-reveal="fade-up" data-delay="1200">
+          <p><strong>Hucho:</strong> <em>Las autoridades han sido alertadas. Tenemos once minutos. No corras. Los que corren son culpables. Los que caminan son invisibles.</em></p>
+          <p>Camina como si el banco fuera tuyo. Porque, de alguna manera, siempre lo fue.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         PANEL 3: LA HUIDA (CSS puro)
+         ═══════════════════════════════════════ -->
+    <section class="panel panel--huida" id="panel-huida" aria-label="La Huida">
+      <div class="panel__overlay speed-lines"></div>
+      <div class="panel__frame"></div>
+
+      <!-- Dalí elements -->
+      <div class="dali-clock" aria-hidden="true"></div>
+      <div class="dali-clock" aria-hidden="true"></div>
+      <div class="dali-eye" aria-hidden="true"></div>
+      <div class="dali-eye" aria-hidden="true"></div>
+
+      <div class="panel__content stack stack--loose">
+        <div class="caption-box caption-box--red" data-reveal="glitch">
+          Capítulo III — La Huida
+        </div>
+
+        <div class="prose" data-reveal="fade-up" data-delay="200">
+          <p>Salimos por la puerta trasera y el mundo se había derretido. No es metáfora — o sí, todo es metáfora cuando llevas 72,000 pesos robados en una mochila del Oxxo y una máscara de chimpancé que empieza a pegarse a tu cara con el sudor como si quisiera ser parte de ti, como si la máscara supiera que ya no hay diferencia entre lo que cubres y lo que eres.</p>
+          <p>El asfalto se ondulaba como un reloj de Dalí abandonado en el desierto de Sonora. Los postes de luz se doblaban para mirarme pasar — testigos verticales de acero que sabían más de la ciudad que cualquiera de sus habitantes. Un perro callejero me miró con la misma expresión que mi padre cuando le dije que iba a estudiar filosofía.</p>
+        </div>
+
+        <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="400">
+          <p><strong>Paco:</strong> Corrimos. O caminamos rápido. O flotamos. A esa velocidad y con esa adrenalina es difícil saber si tus pies tocan el piso o si el piso toca tus pies.</p>
+        </div>
+
+        <div class="fragment" data-reveal="fade-up" data-delay="600">
+          <span>Las sirenas suenan como lobas pariendo en un estacionamiento vacío.</span>
+          <span>Los semáforos parpadean en un código que solo entienden los culpables.</span>
+          <span>Una señora con bolsas del súper me mira y yo le sonrío detrás del chimpancé.</span>
+          <span>El cielo se abrió como una herida de cesárea y de ahí salió la noche, prematura y chillando.</span>
+          <span>¿Quién está corriendo? ¿Él o yo? ¿Hucho o Paco? ¿O somos el mismo animal con dos nombres?</span>
+        </div>
+
+        <div class="speech-bubble speech-bubble--hucho speech-bubble--scared" data-reveal="fade-up" data-delay="800">
+          <p>Su voz se partió en dos: una mitad decía <strong>«El miedo es la herramienta del opresor. Corre y lo alimentas. Camina y lo desarmas.»</strong></p>
+          <p>La otra mitad lloraba quedito, como un niño perdido en un supermercado a las tres de la mañana, buscando a una madre que ya se fue a la sección de lácteos y no piensa volver.</p>
+        </div>
+
+        <p class="whisper" data-reveal="fade-up" data-delay="900">
+          (me están siguiendo o es mi sombra o es dios o es nadie o son todos)
+        </p>
+
+        <p class="whisper" data-reveal="fade-up" data-delay="1000">
+          (si me atrapan... si me atrapan... la palabra "si" es el refugio de los cobardes)
+        </p>
+
+        <div class="caption-box" data-reveal="glitch" data-delay="1100">
+          Los relojes se derretían. Los ojos flotaban. El tiempo dejó de existir. Y en la ausencia del tiempo, todo era posible — incluso escapar.
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         PANEL 4: EL CAMPAMENTO
+         ═══════════════════════════════════════ -->
+    <section class="panel" id="panel-campamento" aria-label="El Campamento">
+      <div class="panel__bg" style="background-image: url('images/campfire.png');"></div>
+      <div class="panel__scrim panel__scrim--gradient"></div>
+      <div class="panel__overlay ben-day"></div>
+      <div class="panel__frame"></div>
+
+      <div class="panel__content stack">
+        <div class="caption-box" data-reveal="slide-right">
+          Capítulo IV — El Campamento
+        </div>
+
+        <div class="prose" data-reveal="fade-up" data-delay="200">
+          <p>Caminé por la carretera hasta que los pies dejaron de ser pies y se convirtieron en dos pedazos de carne que arrastraba por inercia. La noche tenía ese color específico del Valle de México — un morado sucio, contaminado, hermoso a pesar de sí mismo, como una prostituta vieja que todavía se pinta los labios antes de salir a trabajar.</p>
+          <p>El campamento apareció como aparecen las cosas importantes: sin aviso, sin lógica, al borde de una carretera que no lleva a ningún lado. Cinco carpas, dos fogatas, un perro flaco, y el olor a café instantáneo mezclado con mariguana y algo que podría ser esperanza o solo humedad.</p>
+        </div>
+
+        <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="400">
+          <p><strong>Paco:</strong> Era una resistencia anti-sistema. O eso decían. Yo vi gente cansada sentada alrededor de un fuego, igual que hace diez mil años, solo que en lugar de cazar mamuts estaban huyendo de Hacienda.</p>
+        </div>
+
+        <div class="prose" data-reveal="fade-up" data-delay="500">
+          <p>Hillbillies con escopetas oxidadas que no habían disparado desde la administración de Fox. Maestras rurales con manifiestos enrollados como cigarrillos — fumaban sus ideas y exhalaban utopías. Un predicador evangélico que había perdido la fe pero no la voz, y usaba ambas ausencias para gritar en la madrugada cosas que nadie entendía pero todos sentían.</p>
+          <p>Y el tipo sin dientes. El tipo sin dientes merecía un capítulo aparte, una novela entera, una estatua en alguna plaza que nunca se va a construir. Se llamaba — o decía llamarse — Don Refugio. Me ofreció café en un jarro de peltre abollado que parecía haber sobrevivido a la Revolución, la verdadera, la de 1910, y me citó a Bakunin con la naturalidad de alguien que pide la hora.</p>
+        </div>
+
+        <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="600">
+          <p><strong>Paco:</strong> ¿Tú también huyes de algo, viejo?</p>
+        </div>
+
+        <div class="speech-bubble speech-bubble--hucho" data-reveal="fade-up" data-delay="700">
+          <p><strong>Don Refugio:</strong> <em>Yo no huyo, muchacho. Yo espero. Que es peor. El que huye al menos tiene dirección. El que espera solo tiene fe, y la fe es la enfermedad más contagiosa del mundo.</em></p>
+        </div>
+
+        <div class="scrawl" data-reveal="fade-up" data-delay="800">
+          <p>Km 40. No confíes en el del sombrero. La maestra sabe dónde está la avioneta. El misil es real.</p>
+          <p>— H.</p>
+        </div>
+
+        <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="900">
+          <p><strong>Paco:</strong> La luna cruzó el cielo como una moneda lanzada al aire. Nadie sabía de qué lado iba a caer. Me quedé mirándola hasta que mis ojos ardieron y la luna se multiplicó en tres, como una santísima trinidad de plata para ateos.</p>
+          <p>Esperé a Hucho. El tiempo se alargó como chicle en la suela de un zapato... la noche se volvió día de repente, sin transición, como si alguien hubiera cambiado de canal.</p>
+        </div>
+
+        <div class="manifesto" data-reveal="fade-up" data-delay="1000">
+          <p>Sentado junto a las brasas, con los 72,000 pesos debajo de mi cuerpo como un colchón ideológico, pensé en todas las revoluciones que fracasaron. Son todas. Todas fracasaron. Pero el fracaso de una revolución dura más que el éxito de cualquier gobierno. El Che está en más camisetas que cualquier presidente. La derrota es la forma más durable de la victoria.</p>
+          <p>¿Eso nos hace héroes o idiotas? La respuesta, sospecho, es sí.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         PANEL 5: EL MISIL
+         ═══════════════════════════════════════ -->
+    <section class="panel panel--misil" id="panel-misil" data-shake aria-label="El Misil">
+      <div class="panel__bg" style="background-image: url('images/missile.png');"></div>
+      <div class="panel__scrim panel__scrim--red"></div>
+      <div class="panel__overlay halftone--red"></div>
+      <div class="panel__frame"></div>
+
+      <div class="panel__content stack stack--tight">
+        <div class="caption-box caption-box--red" data-reveal="slide-right">
+          Capítulo V — El Misil
+        </div>
+
+        <p class="typewriter-line" data-reveal="typewriter" data-delay="200">
+          Primero el sonido.
+        </p>
+        <p class="typewriter-line" data-reveal="typewriter" data-delay="1500">
+          Un desgarro en la tela del cielo, como si dios rasgara su propia camisa de fuerza.
+        </p>
+        <p class="typewriter-line" data-reveal="typewriter" data-delay="3000">
+          El misil cruzó la noche como un dedo de dios señalando a la ciudad.
+        </p>
+        <p class="typewriter-line" data-reveal="typewriter" data-delay="4500">
+          Diciendo: tú. Tú en particular. Tú que pensaste que estabas a salvo.
+        </p>
+        <p class="typewriter-line" data-reveal="typewriter" data-delay="5500">
+          Los revolucionarios no piden permiso.
+        </p>
+        <p class="typewriter-line" data-reveal="typewriter" data-delay="6500">
+          Los revolucionarios piden perdón. Después. Si sobreviven.
+        </p>
+
+        <div class="sfx-wrap sfx-wrap--red">
+          <span class="sfx sfx--boom" data-reveal="slam" data-delay="7500">¡BOOM!</span>
+        </div>
+
+        <div class="scream" data-reveal="fade-up" data-delay="8000">
+          EL CIELO SE PARTIÓ EN DOS
+        </div>
+
+        <div class="fragment" data-reveal="fade-up" data-delay="8500">
+          <span>Luz blanca. Pura. Total. Como nacer al revés.</span>
+          <span>El suelo dejó de ser suelo.</span>
+          <span>Mi nombre dejó de ser mi nombre.</span>
+          <span>Solo quedó el zumbido. Y el olor a ozono. Y nada.</span>
+        </div>
+
+        <div class="inner-voice" data-reveal="fade-up" data-delay="9000">
+          <div class="inner-voice__a">
+            <span class="inner-voice__label">Hucho — el visionario</span>
+            <p>«Esto era necesario. Toda estructura podrida necesita un detonante. No pedimos permiso para nacer — ¿por qué pediríamos permiso para destruir?»</p>
+          </div>
+          <div class="inner-voice__b">
+            <span class="inner-voice__label">Hucho — el cobarde</span>
+            <p>(Está llorando. No dice nada. Solo llora. Con los ojos cerrados y las manos sobre los oídos como un niño durante los cuetes de año nuevo. Ni siquiera el cobarde tiene palabras para esto.)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         PANEL 6: LA CAÍDA
+         ═══════════════════════════════════════ -->
+    <section class="panel" id="panel-caida" data-water-rise aria-label="La Caída">
+      <div class="panel__bg" style="background-image: url('images/plane_crash.png');"></div>
+      <div class="panel__scrim panel__scrim--dark"></div>
+      <div class="panel__overlay ripple"></div>
+      <div class="panel__frame"></div>
+
+      <!-- Water rise effect -->
+      <div class="water-overlay" aria-hidden="true"></div>
+
+      <div class="panel__content stack">
+        <div class="caption-box" data-reveal="slide-right">
+          Capítulo VI — La Caída
+        </div>
+
+        <div class="prose" data-reveal="fade-up" data-delay="200">
+          <p>La avioneta era un Cessna del 78 que había visto mejores décadas. El piloto — un tipo que se hacía llamar Cóndor pero que tenía más pinta de paloma mojada — dijo que podíamos llegar a la frontera en cuatro horas. Mintió. Mentimos todos. El plan era mentira. La esperanza era mentira. Solo la gravedad decía la verdad, y la gravedad no perdona.</p>
+        </div>
+
+        <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="400">
+          <p><strong>Paco:</strong> El motor tosió como un viejo fumador a las cinco de la mañana. Primero una tos. Luego silencio. El silencio de un motor en el aire es la cosa más ruidosa del universo.</p>
+          <p>Caímos de cabeza. No como en las películas — sin música, sin cámara lenta, sin un último flashback de tu vida. Solo la nariz del avión apuntando al lago y la certeza absoluta, cristalina, perfecta, de que esto es lo último.</p>
+        </div>
+
+        <div class="sfx-wrap">
+          <span class="sfx sfx--splash" data-reveal="slam" data-delay="600">¡SPLASH!</span>
+        </div>
+
+        <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="800">
+          <p><strong>Paco:</strong> El agua no salpicó — nos tragó. Como una boca enorme que llevaba siglos esperando exactamente este bocado.</p>
+          <p>El frío fue instantáneo. Total. Perfecto. Como la muerte, pero con los ojos abiertos y los pulmones llenos de algo que ya no era aire.</p>
+        </div>
+
+        <p class="whisper" data-reveal="fade-up" data-delay="1000">
+          (así que esto es morir... no duele... solo pesa... pesa mucho... como una deuda impagable...)
+        </p>
+
+        <div class="fragment" data-reveal="fade-up" data-delay="1200">
+          <span>El agua entra por la nariz y sabe a tierra y a tiempo.</span>
+          <span>Los 72,000 pesos flotan como peces muertos, verdes y absurdos.</span>
+          <span>La máscara de chimpancé se despega y se hunde antes que yo.</span>
+          <span>Hucho no dice nada. Por primera vez, las dos voces callan.</span>
+        </div>
+
+        <p class="whisper" data-reveal="fade-up" data-delay="1400">
+          (mamá... perdón... mamá...)
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         EPÍLOGO
+         ═══════════════════════════════════════ -->
+    <section class="panel panel--epilogo" id="panel-epilogo" aria-label="Epílogo">
+      <div class="panel__frame"></div>
+
+      <div class="panel__content">
+        <div class="stack stack--loose text-center">
+          <div class="caption-box" data-reveal="fade-up">
+            Epílogo
+          </div>
+
+          <div class="prose" data-reveal="fade-up" data-delay="500" style="border-left-color: transparent; text-align: center;">
+            <p>Desperté sin estar respirando. No en un hospital. No en el cielo. No en el infierno. En mi cama. Con las sábanas empapadas de sudor y los ojos abiertos como dos agujeros en una máscara que ya no estaba ahí.</p>
+            <p>El reloj marcaba las 4:47 de la mañana. La ciudad zumbaba afuera con esa frecuencia baja de las cosas que nunca se detienen: el tráfico, la corrupción, el insomnio colectivo de veinte millones de personas que sueñan con ser libres y despiertan a ser empleados.</p>
+          </div>
+
+          <p class="epilogo-text" data-reveal="fade-up" data-delay="1500">
+            Me toqué la cara. Mi cara. Sin máscara. Sin chimpancé. Sin nada entre mi piel y el mundo. Y eso se sintió más desnudo que cualquier desnudez.
+          </p>
+
+          <p class="epilogo-text" data-reveal="fade-up" data-delay="2500">
+            Pero en el bolsillo de mi pantalón — el pantalón con el que me dormí, el pantalón que no me puse en ningún sueño — encontré un papel doblado en cuatro.
+          </p>
+
+          <div class="scrawl" data-reveal="fade-up" data-delay="3500" style="text-align: center;">
+            <p>Kilómetro 40. Esta noche.</p>
+            <p>No llegues tarde esta vez.</p>
+            <p>— H.</p>
+          </div>
+
+          <p class="epilogo-text" data-reveal="fade-up" data-delay="5000">
+            Me quedé mirando el papel. Lo olí. Olía a gasolina y a copal.
+          </p>
+
+          <p class="epilogo-text epilogo-text--final" data-reveal="scale-in" data-delay="6000">
+            ¿Era un sueño... o un borrador?
+          </p>
+
+          <div class="manifesto" data-reveal="fade-up" data-delay="7000" style="text-align: left; max-width: 500px; margin: 0 auto;">
+            <p>Si fue un sueño, fue el sueño más real que he tenido. Si fue un plan, fue el plan más soñado que he vivido. La frontera entre ambas cosas se borró en algún punto entre el banco y el lago, entre la máscara y la cara, entre Paco y Hucho.</p>
+            <p>¿El plan era de Paco? ¿O Paco era parte del plan de Hucho? ¿Y si Hucho no existe? ¿Y si Hucho soy yo? ¿Y si yo soy el sueño de alguien más?</p>
+            <p>Kilómetro 40. Esta noche. No hay vuelta atrás cuando el borrador se convierte en tinta.</p>
+          </div>
+
+          <p class="whisper" data-reveal="fade-up" data-delay="8000">
+            (el plan continúa... el plan siempre continúa... el plan es lo único que no se ahoga)
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Inspirado en un sueño rebelde narrado por Paco y orquestado por Hucho.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

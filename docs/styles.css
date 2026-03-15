@@ -1,0 +1,1360 @@
+/*
+ * El Plan de Hucho — Novela Gráfica
+ * Estética: Lichtenstein × Brutalist × Dalí
+ * Mobile-first, scroll-driven, sin frameworks
+ */
+
+/* ═══════════════════════════════════════════
+   0. GOOGLE FONTS (loaded in HTML <head>)
+   Bangers — títulos, SFX
+   Permanent Marker — captions, narración
+   Courier Prime — typewriter
+   ═══════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════
+   1. VARIABLES & RESET
+   ═══════════════════════════════════════════ */
+:root {
+  /* Paleta Lichtenstein */
+  --red: #e63946;
+  --red-dark: #b71c1c;
+  --yellow: #f1c40f;
+  --yellow-pale: #fff9c4;
+  --blue: #457b9d;
+  --blue-dark: #1d3557;
+  --blue-light: #a8dadc;
+  --white: #f8f8f8;
+  --black: #0a0a0a;
+  --gray: #1d1d1d;
+
+  /* Bubbles */
+  --bubble-bg: rgba(255, 255, 255, 0.95);
+  --bubble-border: #000000;
+
+  /* Typography scale (mobile-first) */
+  --fs-hero: clamp(3rem, 12vw, 8rem);
+  --fs-h2: clamp(1.8rem, 5vw, 3.5rem);
+  --fs-sfx: clamp(3rem, 10vw, 7rem);
+  --fs-body: clamp(0.95rem, 2.5vw, 1.15rem);
+  --fs-caption: clamp(0.9rem, 2.2vw, 1.1rem);
+  --fs-small: clamp(0.8rem, 2vw, 0.95rem);
+
+  /* Spacing */
+  --pad-panel: clamp(1.5rem, 5vw, 4rem);
+  --pad-bubble: clamp(1rem, 3vw, 2rem);
+  --max-content: 720px;
+
+  /* Borders */
+  --border-thick: 6px;
+  --border-medium: 4px;
+  --border-thin: 3px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  background-color: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ═══════════════════════════════════════════
+   2. PROGRESS BAR
+   ═══════════════════════════════════════════ */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 0%;
+  background: var(--red);
+  z-index: 9999;
+  transition: width 0.1s linear;
+}
+
+/* ═══════════════════════════════════════════
+   3. PANEL SYSTEM (Comic page layout)
+   ═══════════════════════════════════════════ */
+.comic-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.panel {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  border-bottom: var(--border-thick) solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.panel__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: scale(1.15);
+  will-change: transform;
+}
+
+.panel__frame {
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 var(--border-thick) var(--black);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.panel__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.panel__content {
+  position: relative;
+  z-index: 3;
+  padding: var(--pad-panel);
+  max-width: var(--max-content);
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Dark scrim for readability */
+.panel__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.panel__scrim--dark {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.panel__scrim--gradient {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+}
+
+.panel__scrim--red {
+  background: rgba(230, 57, 70, 0.15);
+}
+
+/* ═══════════════════════════════════════════
+   4. GRAPHIC PATTERNS (Ben-Day, halftone, etc.)
+   ═══════════════════════════════════════════ */
+.ben-day {
+  background-image: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.12) 1px,
+    transparent 1px
+  );
+  background-size: 4px 4px;
+}
+
+.halftone {
+  background-image: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.18) 2px,
+    transparent 2px
+  );
+  background-size: 8px 8px;
+}
+
+.halftone--red {
+  background-image: radial-gradient(
+    circle,
+    rgba(230, 57, 70, 0.25) 2px,
+    transparent 2px
+  );
+  background-size: 8px 8px;
+}
+
+.speed-lines {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 4px,
+    rgba(255, 255, 255, 0.06) 4px,
+    rgba(255, 255, 255, 0.06) 5px
+  );
+}
+
+.ripple {
+  background-image: repeating-radial-gradient(
+    circle at 50% 80%,
+    transparent,
+    transparent 20px,
+    rgba(69, 123, 157, 0.12) 20px,
+    rgba(69, 123, 157, 0.12) 22px
+  );
+}
+
+/* ═══════════════════════════════════════════
+   5. SPEECH BUBBLES
+   ═══════════════════════════════════════════ */
+.speech-bubble {
+  background-color: var(--bubble-bg);
+  border: var(--border-medium) solid var(--bubble-border);
+  border-radius: 20px;
+  padding: var(--pad-bubble);
+  box-shadow: 6px 6px 0 var(--black);
+  color: var(--black);
+  position: relative;
+  max-width: 100%;
+  line-height: 1.5;
+  font-size: var(--fs-body);
+  font-family: 'Courier Prime', monospace;
+
+  /* Reveal state */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.speech-bubble.revealed,
+.panel--active .speech-bubble {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Cola izquierda — Paco */
+.speech-bubble--paco {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.speech-bubble--paco::after {
+  content: "";
+  position: absolute;
+  bottom: -18px;
+  left: 28px;
+  width: 0;
+  height: 0;
+  border: 18px solid transparent;
+  border-top-color: var(--bubble-border);
+  border-bottom: 0;
+  border-right: 0;
+}
+
+.speech-bubble--paco::before {
+  content: "";
+  position: absolute;
+  bottom: -14px;
+  left: 30px;
+  width: 0;
+  height: 0;
+  border: 15px solid transparent;
+  border-top-color: var(--bubble-bg);
+  border-bottom: 0;
+  border-right: 0;
+  z-index: 1;
+}
+
+/* Cola derecha — Hucho */
+.speech-bubble--hucho {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.speech-bubble--hucho::after {
+  content: "";
+  position: absolute;
+  bottom: -18px;
+  right: 28px;
+  width: 0;
+  height: 0;
+  border: 18px solid transparent;
+  border-top-color: var(--bubble-border);
+  border-bottom: 0;
+  border-left: 0;
+}
+
+.speech-bubble--hucho::before {
+  content: "";
+  position: absolute;
+  bottom: -14px;
+  right: 30px;
+  width: 0;
+  height: 0;
+  border: 15px solid transparent;
+  border-top-color: var(--bubble-bg);
+  border-bottom: 0;
+  border-left: 0;
+  z-index: 1;
+}
+
+/* Modo cobarde — borde ondulado animado */
+.speech-bubble--scared {
+  animation: wobble-border 0.3s infinite alternate;
+}
+
+@keyframes wobble-border {
+  0%   { border-radius: 20px 22px 18px 24px; }
+  100% { border-radius: 24px 18px 22px 20px; }
+}
+
+.speech-bubble strong {
+  font-family: 'Bangers', cursive;
+  font-size: 1.15em;
+  letter-spacing: 0.5px;
+}
+
+.speech-bubble em {
+  color: var(--red-dark);
+}
+
+.speech-bubble p {
+  margin-bottom: 0.6em;
+}
+
+.speech-bubble p:last-child {
+  margin-bottom: 0;
+}
+
+/* ═══════════════════════════════════════════
+   6. THOUGHT BUBBLES
+   ═══════════════════════════════════════════ */
+.thought-bubble {
+  background-color: var(--bubble-bg);
+  border: var(--border-medium) solid var(--bubble-border);
+  border-radius: 50%;
+  padding: 1.5rem 2rem;
+  box-shadow: 4px 4px 0 var(--black);
+  color: var(--black);
+  position: relative;
+  max-width: 85%;
+  margin: 1.5rem auto 2rem;
+  font-style: italic;
+  font-size: var(--fs-body);
+  text-align: center;
+  font-family: 'Permanent Marker', cursive;
+
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.thought-bubble.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Trailing dots */
+.thought-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  background: var(--bubble-bg);
+  border: 3px solid var(--bubble-border);
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+.thought-bubble::before {
+  content: "";
+  position: absolute;
+  bottom: -26px;
+  left: calc(50% + 8px);
+  width: 8px;
+  height: 8px;
+  background: var(--bubble-bg);
+  border: 2px solid var(--bubble-border);
+  border-radius: 50%;
+}
+
+/* ═══════════════════════════════════════════
+   7. CAPTION BOXES (Narrator)
+   ═══════════════════════════════════════════ */
+.caption-box {
+  background-color: var(--yellow);
+  border: var(--border-thin) solid var(--black);
+  padding: 0.7rem 1.2rem;
+  font-family: 'Permanent Marker', cursive;
+  font-size: var(--fs-caption);
+  color: var(--black);
+  transform: rotate(-1deg);
+  box-shadow: 4px 4px 0 var(--black);
+  max-width: 100%;
+  display: inline-block;
+  margin-bottom: 1.2rem;
+  line-height: 1.4;
+
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.caption-box.revealed {
+  opacity: 1;
+}
+
+.caption-box--red {
+  background-color: var(--red);
+  color: var(--white);
+  transform: rotate(1deg);
+}
+
+/* ═══════════════════════════════════════════
+   8. SFX / ONOMATOPEYAS
+   ═══════════════════════════════════════════ */
+.sfx {
+  font-family: 'Bangers', cursive;
+  font-size: var(--fs-sfx);
+  color: var(--yellow);
+  -webkit-text-stroke: 3px var(--black);
+  text-shadow:
+    4px 4px 0 var(--black),
+    -2px -2px 0 var(--black),
+    2px -2px 0 var(--black),
+    -2px 2px 0 var(--black);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  position: relative;
+  display: inline-block;
+  z-index: 5;
+  line-height: 1;
+
+  /* Reveal */
+  opacity: 0;
+  transform: scale(0.3) rotate(-5deg);
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.sfx.revealed {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.sfx--boom {
+  color: var(--red);
+  transform: scale(0.3) rotate(-12deg);
+}
+
+.sfx--boom.revealed {
+  transform: scale(1) rotate(-12deg);
+}
+
+.sfx--splash {
+  color: var(--blue-light);
+  transform: scale(0.3) rotate(8deg);
+}
+
+.sfx--splash.revealed {
+  transform: scale(1) rotate(8deg);
+}
+
+.sfx--crack {
+  color: var(--white);
+}
+
+/* Starburst behind SFX */
+.sfx-wrap {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.sfx-wrap::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(120px, 30vw, 250px);
+  height: clamp(120px, 30vw, 250px);
+  transform: translate(-50%, -50%);
+  background: var(--yellow);
+  clip-path: polygon(
+    50% 0%, 61% 15%, 79% 2%, 74% 22%, 98% 22%, 82% 36%,
+    100% 50%, 82% 64%, 98% 78%, 74% 78%, 79% 98%, 61% 85%,
+    50% 100%, 39% 85%, 21% 98%, 26% 78%, 2% 78%, 18% 64%,
+    0% 50%, 18% 36%, 2% 22%, 26% 22%, 21% 2%, 39% 15%
+  );
+  z-index: -1;
+  opacity: 0.9;
+}
+
+.sfx--boom + .sfx-wrap::before,
+.sfx-wrap--red::before {
+  background: var(--red);
+}
+
+/* ═══════════════════════════════════════════
+   9. DALÍ ELEMENTS
+   ═══════════════════════════════════════════ */
+.dali-clock {
+  width: 60px;
+  height: 60px;
+  border: 3px solid var(--yellow);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  background: rgba(241, 196, 15, 0.15);
+  position: absolute;
+  animation: melt 6s ease-in-out infinite;
+}
+
+.dali-clock::after {
+  content: "";
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  width: 2px;
+  height: 35%;
+  background: var(--yellow);
+  transform-origin: top center;
+  animation: clock-hand 3s linear infinite;
+}
+
+.dali-eye {
+  width: 50px;
+  height: 30px;
+  border: 3px solid var(--white);
+  border-radius: 50%;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  animation: float 5s ease-in-out infinite;
+  overflow: hidden;
+}
+
+.dali-eye::after {
+  content: "";
+  width: 14px;
+  height: 14px;
+  background: var(--red);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: look-around 4s ease-in-out infinite;
+}
+
+@keyframes melt {
+  0%, 100% {
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    transform: skewY(0deg) rotate(0deg);
+  }
+  50% {
+    border-radius: 40% 60% 60% 40% / 70% 30% 70% 30%;
+    transform: skewY(10deg) rotate(-5deg);
+  }
+}
+
+@keyframes clock-hand {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(3deg); }
+}
+
+@keyframes look-around {
+  0%, 100% { transform: translate(-50%, -50%); }
+  25% { transform: translate(-20%, -50%); }
+  75% { transform: translate(-80%, -50%); }
+}
+
+/* ═══════════════════════════════════════════
+   10. COVER PANEL
+   ═══════════════════════════════════════════ */
+.panel--cover {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.panel--cover .panel__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cover-title {
+  font-family: 'Bangers', cursive;
+  font-size: var(--fs-hero);
+  color: var(--white);
+  -webkit-text-stroke: 3px var(--black);
+  text-shadow:
+    5px 5px 0 var(--red),
+    -2px -2px 0 var(--black);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  line-height: 0.95;
+}
+
+.cover-tagline {
+  font-family: 'Permanent Marker', cursive;
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  color: var(--yellow);
+  max-width: 500px;
+}
+
+.cover-subtitle {
+  font-family: 'Courier Prime', monospace;
+  font-size: var(--fs-small);
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+}
+
+.scroll-indicator {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  color: var(--white);
+  animation: bounce-down 2s ease-in-out infinite;
+  opacity: 0.7;
+}
+
+@keyframes bounce-down {
+  0%, 100% { transform: translateY(0); opacity: 0.7; }
+  50% { transform: translateY(12px); opacity: 1; }
+}
+
+/* ═══════════════════════════════════════════
+   11. PANEL-SPECIFIC STYLES
+   ═══════════════════════════════════════════ */
+
+/* Panel 3 — La Huida (CSS-only background) */
+.panel--huida {
+  background: linear-gradient(
+    135deg,
+    var(--black) 0%,
+    #1a0a2e 30%,
+    #2d1b4e 60%,
+    var(--black) 100%
+  );
+}
+
+.panel--huida .dali-clock:nth-child(1) {
+  top: 10%;
+  right: 8%;
+  animation-delay: 0s;
+}
+
+.panel--huida .dali-clock:nth-child(2) {
+  bottom: 20%;
+  left: 5%;
+  width: 45px;
+  height: 45px;
+  animation-delay: 2s;
+}
+
+.panel--huida .dali-eye:nth-child(3) {
+  top: 30%;
+  left: 12%;
+  animation-delay: 1s;
+}
+
+.panel--huida .dali-eye:nth-child(4) {
+  bottom: 35%;
+  right: 10%;
+  width: 40px;
+  height: 24px;
+  animation-delay: 3s;
+}
+
+/* Panel 5 — Misil */
+.panel--misil .panel__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* Panel 6 — Water overlay */
+.water-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(
+    to top,
+    rgba(29, 53, 87, 0.95) 0%,
+    rgba(69, 123, 157, 0.7) 40%,
+    transparent 100%
+  );
+  z-index: 4;
+  transform: translateY(100%);
+  transition: transform 4s ease-in;
+  pointer-events: none;
+}
+
+.water-overlay.risen {
+  transform: translateY(20%);
+}
+
+/* Epilogue */
+.panel--epilogo {
+  background: var(--black);
+  min-height: 100vh;
+}
+
+.panel--epilogo .panel__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+.epilogo-text {
+  font-family: 'Courier Prime', monospace;
+  font-size: var(--fs-body);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.8;
+  max-width: 500px;
+}
+
+.epilogo-text--final {
+  font-family: 'Permanent Marker', cursive;
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  color: var(--yellow);
+}
+
+/* ═══════════════════════════════════════════
+   12. FLASH & SHAKE EFFECTS
+   ═══════════════════════════════════════════ */
+.flash-overlay {
+  position: fixed;
+  inset: 0;
+  background: white;
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.05s;
+}
+
+.flash-overlay.active {
+  opacity: 1;
+}
+
+body.shaking {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10% { transform: translateX(-8px) rotate(-0.5deg); }
+  20% { transform: translateX(8px) rotate(0.5deg); }
+  30% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  50% { transform: translateX(-4px); }
+  60% { transform: translateX(4px); }
+  70% { transform: translateX(-2px); }
+  80% { transform: translateX(2px); }
+}
+
+/* ═══════════════════════════════════════════
+   13. REVEAL ANIMATIONS (data-reveal states)
+   ═══════════════════════════════════════════ */
+
+/* Base hidden state for all revealable elements */
+[data-reveal] {
+  opacity: 0;
+  transition-duration: 0.8s;
+  transition-timing-function: ease-out;
+}
+
+[data-reveal="fade-up"] {
+  transform: translateY(40px);
+  transition-property: opacity, transform;
+}
+
+[data-reveal="fade-up"].revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-reveal="slide-right"] {
+  transform: translateX(-60px);
+  transition-property: opacity, transform;
+}
+
+[data-reveal="slide-right"].revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+[data-reveal="scale-in"] {
+  transform: scale(0.7);
+  transition-property: opacity, transform;
+}
+
+[data-reveal="scale-in"].revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+[data-reveal="slam"] {
+  transform: scale(2.5) rotate(-8deg);
+  transition-property: opacity, transform;
+  transition-duration: 0.4s;
+  transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+[data-reveal="slam"].revealed {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+/* SFX slam overrides for specific rotations */
+.sfx--boom[data-reveal="slam"].revealed {
+  transform: scale(1) rotate(-12deg);
+}
+
+.sfx--splash[data-reveal="slam"].revealed {
+  transform: scale(1) rotate(8deg);
+}
+
+[data-reveal="typewriter"] {
+  opacity: 1;
+  /* Typewriter handled by JS — just needs a cursor */
+}
+
+[data-reveal="typewriter"].typing::after {
+  content: "█";
+  animation: blink-cursor 0.6s step-end infinite;
+  color: var(--red);
+}
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+[data-reveal="glitch"] {
+  transition-property: opacity;
+  transition-duration: 0.1s;
+}
+
+[data-reveal="glitch"].revealed {
+  opacity: 1;
+  animation: glitch 0.4s steps(3) 1;
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+    filter: none;
+  }
+  20% {
+    transform: translate(-3px, 2px);
+    filter: hue-rotate(90deg);
+  }
+  40% {
+    transform: translate(3px, -2px);
+    filter: hue-rotate(180deg) brightness(1.5);
+  }
+  60% {
+    transform: translate(-2px, -1px);
+    filter: hue-rotate(270deg);
+  }
+  80% {
+    transform: translate(2px, 1px);
+    filter: saturate(3);
+  }
+  100% {
+    transform: translate(0);
+    filter: none;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   14. PANEL BUILD SEQUENCE
+   ═══════════════════════════════════════════ */
+.panel--active .panel__frame {
+  animation: frame-in 0.3s ease-out forwards;
+}
+
+@keyframes frame-in {
+  from { box-shadow: inset 0 0 0 0 var(--black); }
+  to { box-shadow: inset 0 0 0 var(--border-thick) var(--black); }
+}
+
+/* Stagger children */
+.panel--active .caption-box { transition-delay: 0.2s; }
+.panel--active .speech-bubble:nth-child(1) { transition-delay: 0.4s; }
+.panel--active .speech-bubble:nth-child(2) { transition-delay: 0.7s; }
+.panel--active .speech-bubble:nth-child(3) { transition-delay: 1.0s; }
+
+/* ═══════════════════════════════════════════
+   15. LAYOUT HELPERS
+   ═══════════════════════════════════════════ */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.stack--tight {
+  gap: 0.6rem;
+}
+
+.stack--loose {
+  gap: 2rem;
+}
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+
+/* ═══════════════════════════════════════════
+   16. TYPEWRITER LINES
+   ═══════════════════════════════════════════ */
+.typewriter-line {
+  font-family: 'Courier Prime', monospace;
+  font-size: var(--fs-body);
+  color: var(--white);
+  min-height: 1.5em;
+  border-left: 3px solid var(--red);
+  padding-left: 0.8rem;
+}
+
+/* ═══════════════════════════════════════════
+   17. NARRATIVE TEXT COMPONENTS
+   ═══════════════════════════════════════════ */
+
+/* --- .prose — bloques narrativos Bolaño ---- */
+.prose {
+  font-family: 'Courier Prime', monospace;
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.9;
+  border-left: 3px solid rgba(255, 255, 255, 0.15);
+  padding: 1.2rem 1.5rem;
+  max-width: 100%;
+}
+
+.prose p {
+  margin-bottom: 1em;
+}
+
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+/* --- .manifesto — panfleto ideológico ---- */
+.manifesto {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Courier Prime', monospace;
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  border-left: 6px solid var(--red);
+  padding: 1.5rem 1.8rem;
+  max-width: 100%;
+}
+
+.manifesto p {
+  margin-bottom: 0.8em;
+}
+
+.manifesto p:last-child {
+  margin-bottom: 0;
+}
+
+.manifesto.manifesto--loud {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* --- .fragment — consciencia rota ---- */
+.fragment {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  padding: 1rem 0;
+}
+
+.fragment span {
+  font-family: 'Permanent Marker', cursive;
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  color: var(--white);
+  display: block;
+  line-height: 1.4;
+}
+
+.fragment span:nth-child(even) {
+  opacity: 0.6;
+  padding-left: 2rem;
+}
+
+.fragment span:nth-child(3n) {
+  color: var(--yellow);
+}
+
+/* --- .inner-voice — dualidad Fight Club ---- */
+.inner-voice {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.inner-voice__a,
+.inner-voice__b {
+  padding: 1.2rem 1.5rem;
+}
+
+.inner-voice__a {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
+  color: var(--white);
+  line-height: 1.5;
+  border-right: 3px solid var(--red);
+}
+
+.inner-voice__b {
+  font-family: 'Courier Prime', monospace;
+  font-style: italic;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.7;
+}
+
+.inner-voice__label {
+  display: block;
+  font-size: 0.7em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 0.8rem;
+  opacity: 0.5;
+  font-family: 'Courier Prime', monospace;
+  font-style: normal;
+}
+
+.inner-voice__a .inner-voice__label {
+  color: var(--red);
+}
+
+.inner-voice__b .inner-voice__label {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.inner-voice p {
+  margin-bottom: 0.6em;
+}
+
+.inner-voice p:last-child {
+  margin-bottom: 0;
+}
+
+/* Mobile: stack vertically */
+@media (max-width: 599px) {
+  .inner-voice {
+    grid-template-columns: 1fr;
+  }
+
+  .inner-voice__a {
+    border-right: none;
+    border-bottom: 3px solid var(--red);
+  }
+}
+
+/* --- .scrawl — nota manuscrita ---- */
+.scrawl {
+  background: var(--yellow-pale);
+  color: var(--black);
+  font-family: 'Permanent Marker', cursive;
+  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  padding: 1.5rem 2rem;
+  transform: rotate(-1.5deg);
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4);
+  clip-path: polygon(
+    0% 2%, 3% 0%, 97% 1%, 100% 3%,
+    99% 97%, 96% 100%, 4% 99%, 0% 96%
+  );
+  max-width: 85%;
+  margin: 0.5rem auto;
+  line-height: 1.6;
+}
+
+.scrawl p {
+  margin-bottom: 0.5em;
+}
+
+.scrawl p:last-child {
+  margin-bottom: 0;
+}
+
+/* --- .whisper — pensamiento atenuado ---- */
+.whisper {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.75em;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 3px;
+  line-height: 1.8;
+  padding: 0.5rem 0;
+  font-style: italic;
+}
+
+/* --- .scream — grito visual ---- */
+.scream {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(2rem, 8vw, 5rem);
+  color: var(--red);
+  -webkit-text-stroke: 2px var(--black);
+  text-transform: uppercase;
+  transform: skewX(-3deg);
+  text-align: center;
+  line-height: 1;
+  letter-spacing: 4px;
+  text-shadow: 4px 4px 0 var(--black);
+}
+
+/* --- Reveal states for new components ---- */
+.prose[data-reveal],
+.manifesto[data-reveal],
+.fragment[data-reveal],
+.inner-voice[data-reveal],
+.scrawl[data-reveal],
+.whisper[data-reveal],
+.scream[data-reveal] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.prose[data-reveal].revealed,
+.manifesto[data-reveal].revealed,
+.fragment[data-reveal].revealed,
+.inner-voice[data-reveal].revealed,
+.whisper[data-reveal].revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scrawl[data-reveal].revealed {
+  opacity: 1;
+  transform: rotate(-1.5deg) translateY(0);
+}
+
+.scream[data-reveal].revealed {
+  opacity: 1;
+  transform: skewX(-3deg) translateY(0);
+}
+
+/* Fragment children stagger */
+.fragment[data-reveal].revealed span {
+  animation: fragment-in 0.6s ease-out both;
+}
+
+.fragment[data-reveal].revealed span:nth-child(1) { animation-delay: 0s; }
+.fragment[data-reveal].revealed span:nth-child(2) { animation-delay: 0.15s; }
+.fragment[data-reveal].revealed span:nth-child(3) { animation-delay: 0.3s; }
+.fragment[data-reveal].revealed span:nth-child(4) { animation-delay: 0.45s; }
+.fragment[data-reveal].revealed span:nth-child(5) { animation-delay: 0.6s; }
+.fragment[data-reveal].revealed span:nth-child(6) { animation-delay: 0.75s; }
+
+@keyframes fragment-in {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Scream pulse animation */
+.scream[data-reveal].revealed {
+  animation: scream-pulse 0.5s ease-out;
+}
+
+@keyframes scream-pulse {
+  0% {
+    transform: skewX(-3deg) scale(1.8);
+    opacity: 0;
+  }
+  60% {
+    transform: skewX(-3deg) scale(0.95);
+    opacity: 1;
+  }
+  100% {
+    transform: skewX(-3deg) scale(1);
+    opacity: 1;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   18. FOOTER
+   ═══════════════════════════════════════════ */
+footer {
+  background: var(--black);
+  border-top: var(--border-medium) solid var(--gray);
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+  padding: 2rem var(--pad-panel);
+  font-size: var(--fs-small);
+  font-family: 'Courier Prime', monospace;
+}
+
+/* ═══════════════════════════════════════════
+   19. RESPONSIVE — TABLET (768px+)
+   ═══════════════════════════════════════════ */
+@media (min-width: 768px) {
+  :root {
+    --max-content: 680px;
+  }
+
+  .speech-bubble {
+    max-width: 85%;
+  }
+
+  .thought-bubble {
+    max-width: 60%;
+  }
+
+  .cover-title {
+    letter-spacing: 8px;
+  }
+
+  .dali-clock {
+    width: 80px;
+    height: 80px;
+  }
+
+  .dali-eye {
+    width: 70px;
+    height: 42px;
+  }
+
+  .manifesto {
+    padding: 2rem 2.5rem;
+  }
+
+  .scrawl {
+    max-width: 70%;
+  }
+
+  .inner-voice__a {
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   20. RESPONSIVE — DESKTOP (1200px+)
+   ═══════════════════════════════════════════ */
+@media (min-width: 1200px) {
+  :root {
+    --max-content: 800px;
+  }
+
+  .panel {
+    border-bottom-width: 8px;
+  }
+
+  .speech-bubble {
+    max-width: 75%;
+  }
+
+  .cover-title {
+    letter-spacing: 12px;
+  }
+
+  .scrawl {
+    max-width: 60%;
+  }
+
+  .prose {
+    padding: 1.5rem 2rem;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   21. REDUCED MOTION
+   ═══════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .scroll-indicator {
+    animation: none;
+    opacity: 0.7;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .sfx {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .sfx--boom {
+    transform: rotate(-12deg) !important;
+  }
+
+  .sfx--splash {
+    transform: rotate(8deg) !important;
+  }
+
+  .water-overlay {
+    transition: none !important;
+  }
+
+  .panel__bg {
+    transform: none !important;
+  }
+
+  .scrawl {
+    transform: rotate(-1.5deg) !important;
+  }
+
+  .scream {
+    transform: skewX(-3deg) !important;
+  }
+
+  .fragment span {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
