@@ -1,6 +1,6 @@
 /*
  * El Plan de Hucho — Novela Gráfica
- * Scroll-driven animations, typewriter, parallax, shake, water rise
+ * Scroll-driven animations, typewriter, parallax, shake, water rise, chapter nav
  * Vanilla JS, no dependencies
  */
 
@@ -10,28 +10,28 @@
   // ═══════════════════════════════════════════
   // 1. PROGRESS BAR
   // ═══════════════════════════════════════════
-  const progressBar = document.querySelector('.progress-bar');
+  var progressBar = document.querySelector('.progress-bar');
 
   function updateProgress() {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
     progressBar.style.width = percent + '%';
   }
 
   // ═══════════════════════════════════════════
   // 2. REVEAL SYSTEM (IntersectionObserver)
   // ═══════════════════════════════════════════
-  const revealElements = document.querySelectorAll('[data-reveal]');
+  var revealElements = document.querySelectorAll('[data-reveal]');
 
-  const revealObserver = new IntersectionObserver(
+  var revealObserver = new IntersectionObserver(
     function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
 
-        const el = entry.target;
-        const delay = parseInt(el.getAttribute('data-delay') || '0', 10);
-        const revealType = el.getAttribute('data-reveal');
+        var el = entry.target;
+        var delay = parseInt(el.getAttribute('data-delay') || '0', 10);
+        var revealType = el.getAttribute('data-reveal');
 
         // Typewriter is handled separately
         if (revealType === 'typewriter') return;
@@ -43,7 +43,7 @@
         revealObserver.unobserve(el);
       });
     },
-    { threshold: 0.2 }
+    { threshold: 0.25 }
   );
 
   revealElements.forEach(function (el) {
@@ -55,8 +55,8 @@
   // ═══════════════════════════════════════════
   // 3. TYPEWRITER EFFECT
   // ═══════════════════════════════════════════
-  const typewriterElements = document.querySelectorAll('[data-reveal="typewriter"]');
-  const typewriterTexts = new Map();
+  var typewriterElements = document.querySelectorAll('[data-reveal="typewriter"]');
+  var typewriterTexts = new Map();
 
   // Store original text and clear it
   typewriterElements.forEach(function (el) {
@@ -84,7 +84,7 @@
   }
 
   // Observer for typewriter — needs higher threshold
-  const typewriterObserver = new IntersectionObserver(
+  var typewriterObserver = new IntersectionObserver(
     function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
@@ -112,11 +112,10 @@
   // ═══════════════════════════════════════════
   // 4. PARALLAX (transform-based, mobile-safe)
   // ═══════════════════════════════════════════
-  const panelBgs = document.querySelectorAll('.panel__bg');
+  var panelBgs = document.querySelectorAll('.panel__bg');
   var ticking = false;
 
   function updateParallax() {
-    var scrollTop = window.scrollY;
     var windowHeight = window.innerHeight;
 
     panelBgs.forEach(function (bg) {
@@ -138,6 +137,7 @@
 
   function onScroll() {
     updateProgress();
+    updateChapterNav();
 
     if (!ticking) {
       requestAnimationFrame(updateParallax);
@@ -161,7 +161,7 @@
           if (!entry.isIntersecting || shakeTriggered) return;
           shakeTriggered = true;
 
-          // Delay for dramatic buildup
+          // Delay for dramatic buildup (synced with BOOM SFX delay)
           setTimeout(function () {
             // Flash
             flashOverlay.classList.add('active');
@@ -174,7 +174,7 @@
             setTimeout(function () {
               document.body.classList.remove('shaking');
             }, 500);
-          }, 7200); // Synced with BOOM SFX delay (7000) + small buffer
+          }, 8200); // Synced with BOOM SFX delay (8500) - small lead
 
           shakeObserver.unobserve(entry.target);
         });
@@ -226,7 +226,7 @@
         }
       });
     },
-    { threshold: 0.15 }
+    { threshold: 0.25 }
   );
 
   panels.forEach(function (panel) {
@@ -234,10 +234,54 @@
   });
 
   // ═══════════════════════════════════════════
-  // 8. INITIAL STATE
+  // 8. CHAPTER NAVIGATION DOTS
+  // ═══════════════════════════════════════════
+  var navDots = document.querySelectorAll('.chapter-nav__dot');
+  var navSections = [];
+
+  navDots.forEach(function (dot) {
+    var targetId = dot.getAttribute('data-target');
+    var section = document.getElementById(targetId);
+    if (section) {
+      navSections.push({ dot: dot, section: section });
+    }
+
+    // Click to scroll
+    dot.addEventListener('click', function () {
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  function updateChapterNav() {
+    var scrollTop = window.scrollY;
+    var windowHeight = window.innerHeight;
+    var currentIndex = 0;
+
+    navSections.forEach(function (item, index) {
+      var rect = item.section.getBoundingClientRect();
+      // Section is considered active when its top half is in the viewport
+      if (rect.top < windowHeight * 0.5) {
+        currentIndex = index;
+      }
+    });
+
+    navDots.forEach(function (dot, index) {
+      if (index === currentIndex) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+  }
+
+  // ═══════════════════════════════════════════
+  // 9. INITIAL STATE
   // ═══════════════════════════════════════════
   updateProgress();
   updateParallax();
+  updateChapterNav();
 
   // Check for reduced motion preference
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
