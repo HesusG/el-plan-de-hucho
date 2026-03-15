@@ -587,7 +587,7 @@ img {
 }
 
 /* ═══════════════════════════════════════════
-   10. COVER PANEL
+   10. COVER PANELS (3-page intro)
    ═══════════════════════════════════════════ */
 .panel--cover {
   min-height: 100vh;
@@ -602,6 +602,47 @@ img {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+}
+
+/* Cover 1 — text only, black bg, minimal */
+.panel--cover-intro {
+  background: var(--black);
+}
+
+.cover-epigraph {
+  font-family: 'Courier Prime', monospace;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+  line-height: 2;
+  max-width: 500px;
+  letter-spacing: 1px;
+}
+
+/* Cover 2 — title appears, dark bg */
+.panel--cover-title {
+  background: linear-gradient(
+    180deg,
+    var(--black) 0%,
+    #0a0a1a 50%,
+    #1a0a0a 100%
+  );
+}
+
+/* Cover 3 — chimp mask fades in */
+.panel--cover-reveal .panel__bg--fade-in {
+  opacity: 0;
+  animation: bg-fade-in 3s ease-out forwards;
+  animation-play-state: paused;
+}
+
+.panel--cover-reveal.panel--active .panel__bg--fade-in {
+  animation-play-state: running;
+}
+
+@keyframes bg-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .cover-title {
@@ -998,78 +1039,141 @@ body.shaking {
   letter-spacing: 1px;
 }
 
-/* --- .fragment — consciencia rota ---- */
+/* --- .fragment — consciencia rota / narración poética ---- */
 .fragment {
   display: flex;
   flex-direction: column;
-  gap: 1.8rem;
-  padding: 1rem 0;
+  gap: 1.2rem;
+  padding: 1.2rem 1.5rem;
+  border-left: 4px solid var(--yellow);
+  background: rgba(241, 196, 15, 0.05);
+  border-radius: 0 6px 6px 0;
 }
 
 .fragment span {
   font-family: 'Permanent Marker', cursive;
-  font-size: clamp(1rem, 3vw, 1.3rem);
+  font-size: clamp(0.95rem, 2.8vw, 1.2rem);
   color: var(--white);
   display: block;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .fragment span:nth-child(even) {
-  opacity: 0.6;
-  padding-left: 2rem;
+  opacity: 0.75;
+  padding-left: 1.5rem;
 }
 
 .fragment span:nth-child(3n) {
   color: var(--yellow);
 }
 
-/* --- .inner-voice — dualidad Fight Club ---- */
+/* --- .inner-voice — dualidad Fight Club / Lichtenstein glitch ---- */
 .inner-voice {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0;
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  border: 3px solid var(--red);
   overflow: hidden;
+  position: relative;
+  box-shadow: 4px 4px 0 var(--black), -2px -2px 0 rgba(69, 123, 157, 0.3);
+}
+
+/* Glitch scanline overlay */
+.inner-voice::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 0, 0, 0.03) 2px,
+    rgba(255, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Ben-Day dots overlay for Lichtenstein feel */
+.inner-voice::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle,
+    rgba(230, 57, 70, 0.08) 1px,
+    transparent 1px
+  );
+  background-size: 4px 4px;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .inner-voice__a,
 .inner-voice__b {
   padding: 1.2rem 1.5rem;
+  position: relative;
 }
 
+/* Visionario — bold, red accent, Lichtenstein primary */
 .inner-voice__a {
   font-family: 'Bangers', cursive;
   font-size: clamp(1.1rem, 3vw, 1.4rem);
   color: var(--white);
   line-height: 1.5;
-  border-right: 3px solid var(--red);
+  border-right: 4px solid var(--red);
+  background: linear-gradient(135deg, rgba(230, 57, 70, 0.15) 0%, rgba(0, 0, 0, 0.9) 100%);
 }
 
+/* Cobarde — anxious, blue tint, smaller, glitch-unstable */
 .inner-voice__b {
   font-family: 'Courier Prime', monospace;
   font-style: italic;
-  font-size: clamp(0.8rem, 2vw, 0.9rem);
-  color: rgba(255, 255, 255, 0.7);
+  font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+  color: rgba(255, 255, 255, 0.8);
   line-height: 1.7;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(29, 53, 87, 0.3) 100%);
+  animation: inner-voice-glitch 8s ease-in-out infinite;
+}
+
+@keyframes inner-voice-glitch {
+  0%, 90%, 100% {
+    transform: translate(0);
+    filter: none;
+  }
+  92% {
+    transform: translate(-1px, 1px);
+    filter: hue-rotate(90deg);
+  }
+  94% {
+    transform: translate(1px, -1px);
+    filter: hue-rotate(-90deg) brightness(1.1);
+  }
+  96% {
+    transform: translate(0);
+    filter: none;
+  }
 }
 
 .inner-voice__label {
   display: block;
-  font-size: 0.7em;
+  font-size: 0.75em;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   margin-bottom: 0.8rem;
-  opacity: 0.5;
   font-family: 'Courier Prime', monospace;
   font-style: normal;
+  font-weight: bold;
 }
 
 .inner-voice__a .inner-voice__label {
   color: var(--red);
+  text-shadow: 1px 1px 0 var(--black);
 }
 
 .inner-voice__b .inner-voice__label {
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--blue-light);
+  opacity: 0.8;
 }
 
 .inner-voice p {
@@ -1088,7 +1192,7 @@ body.shaking {
 
   .inner-voice__a {
     border-right: none;
-    border-bottom: 3px solid var(--red);
+    border-bottom: 4px solid var(--red);
   }
 }
 
@@ -1121,12 +1225,15 @@ body.shaking {
 /* --- .whisper — pensamiento atenuado ---- */
 .whisper {
   font-family: 'Courier Prime', monospace;
-  font-size: 0.75em;
-  color: rgba(255, 255, 255, 0.65);
-  letter-spacing: 3px;
+  font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 2px;
   line-height: 1.8;
-  padding: 0.5rem 0;
+  padding: 0.8rem 1.2rem;
   font-style: italic;
+  background: rgba(255, 255, 255, 0.06);
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0 4px 4px 0;
 }
 
 /* --- .scream — grito visual ---- */
@@ -1222,26 +1329,51 @@ body.shaking {
    18. AVATARS (character headshots)
    ═══════════════════════════════════════════ */
 .avatar {
-  width: 48px;
-  height: 48px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   border: 3px solid var(--black);
   object-fit: cover;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 0.4rem;
-  box-shadow: 2px 2px 0 var(--black);
+  display: block;
+  box-shadow: 3px 3px 0 var(--black);
   flex-shrink: 0;
 }
 
-.speech-bubble .bubble-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
+/* Avatar positioned below bubble, aligned with the tail */
+.speech-bubble {
+  position: relative;
 }
 
-.speech-bubble .bubble-header strong {
-  margin: 0;
+.bubble-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+  padding-top: 0.6rem;
+  border-top: 2px dashed rgba(0, 0, 0, 0.15);
+}
+
+.bubble-footer strong {
+  font-family: 'Bangers', cursive;
+  font-size: 1.15em;
+  letter-spacing: 0.5px;
+}
+
+/* Paco — avatar aligned left (with left tail) */
+.speech-bubble--paco .bubble-footer {
+  justify-content: flex-start;
+}
+
+/* Hucho — avatar aligned right (with right tail) */
+.speech-bubble--hucho .bubble-footer {
+  justify-content: flex-start;
+}
+
+@media (min-width: 768px) {
+  .avatar {
+    width: 80px;
+    height: 80px;
+  }
 }
 
 /* ═══════════════════════════════════════════

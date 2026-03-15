@@ -36,24 +36,48 @@
   <main class="comic-page">
 
     <!-- ═══════════════════════════════════════
-         COVER — chimp_mask.png full bleed
+         COVER PAGE 1 — Texto solo, fondo negro
          ═══════════════════════════════════════ -->
-    <section class="panel panel--cover" id="panel-cover" aria-label="Portada">
-      <div class="panel__bg" style="background-image: url('images/chimp_mask.png');"></div>
+    <section class="panel panel--cover panel--cover-intro" id="panel-cover" aria-label="Portada">
+      <div class="panel__frame"></div>
+
+      <div class="panel__content text-center">
+        <p class="cover-epigraph" data-reveal="fade-up">
+          «Todo plan empieza como un sueño.<br>
+          Todo sueño termina como un plan que nadie pidió.»
+        </p>
+        <div class="scroll-indicator" data-reveal="fade-up" data-delay="1500">▼</div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         COVER PAGE 2 — Título aparece
+         ═══════════════════════════════════════ -->
+    <section class="panel panel--cover panel--cover-title" aria-label="Título">
+      <div class="panel__scrim panel__scrim--dark"></div>
+      <div class="panel__frame"></div>
+
+      <div class="panel__content text-center">
+        <h1 class="cover-title" data-reveal="scale-in" data-delay="200">El Plan<br>de Hucho</h1>
+        <p class="cover-tagline" data-reveal="fade-up" data-delay="800">
+          Todo sistema tiene una grieta. Todo sueño, una verdad.
+          Y toda verdad, un pendejo dispuesto a morir por ella.
+        </p>
+        <div class="scroll-indicator" data-reveal="fade-up" data-delay="1400">▼</div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         COVER PAGE 3 — El chango aparece
+         ═══════════════════════════════════════ -->
+    <section class="panel panel--cover panel--cover-reveal" aria-label="La Máscara revelada">
+      <div class="panel__bg panel__bg--fade-in" style="background-image: url('images/chimp_mask.png');"></div>
       <div class="panel__scrim panel__scrim--gradient"></div>
       <div class="panel__overlay ben-day"></div>
       <div class="panel__frame"></div>
 
       <div class="panel__content text-center">
-        <p class="whisper" data-reveal="fade-up" style="margin-bottom: 1.5rem;">
-          «Todo plan empieza como un sueño. Todo sueño termina como un plan que nadie pidió.»
-        </p>
-        <h1 class="cover-title" data-reveal="scale-in" data-delay="300">El Plan<br>de Hucho</h1>
-        <p class="cover-tagline" data-reveal="fade-up" data-delay="600">
-          Todo sistema tiene una grieta. Todo sueño, una verdad.
-          Y toda verdad, un pendejo dispuesto a morir por ella.
-        </p>
-        <p class="cover-subtitle" data-reveal="fade-up" data-delay="900">
+        <p class="cover-subtitle" data-reveal="fade-up" data-delay="500">
           Esto no es ficción. Es un recuerdo que todavía no ha ocurrido.
           Si estás leyendo esto, ya valió madres.
         </p>
@@ -82,21 +106,21 @@
         </div>
 
         <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="600">
-          <div class="bubble-header">
-            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
-            <strong>Paco:</strong>
-          </div>
           <p>Tres pinches noches soñando con ese güey. No me dijo nada con palabras — me lo instaló en el cuerpo como un virus. El golpe ya estaba decidido. Solo faltaba que mi culo cobarde se presentara.</p>
           <p>Un martes llegó una caja. Sin remitente. Sin nota. Adentro: una gorra-máscara de chimpancé café. Del tipo que te cubre toda la cabeza, pero con una visera roja en el cuello — te la pones como gorra y cuando la necesitas la jalas hacia abajo y te tapa la cara completa. Chingona, la neta.</p>
+          <div class="bubble-footer">
+            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
+            <strong>Paco</strong>
+          </div>
         </div>
 
         <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="900">
-          <div class="bubble-header">
-            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
-            <strong>Paco:</strong>
-          </div>
           <p>Me puse el traje azul grisáceo — el único que tengo, bien ejecutivo, el que he usado en bodas de primos que ya se divorciaron y en funerales que prefiero no recordar. Ese traje ha visto más fracasos que éxitos. Perfecto para esto.</p>
           <p>La máscara olía a plástico nuevo y a sudor viejo, como si alguien la hubiera usado antes en otro sueño, en otro intento fallido de romper la máquina.</p>
+          <div class="bubble-footer">
+            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
+            <strong>Paco</strong>
+          </div>
         </div>
 
         <div class="inner-voice" data-reveal="fade-up" data-delay="1200">
@@ -143,20 +167,20 @@
         </div>
 
         <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="600">
-          <div class="bubble-header">
-            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
-            <strong>Paco:</strong>
-          </div>
           <p>Piso 22. Oficinas vacías. Luces apagadas. Y ahí estaba Hucho, sentado en una silla giratoria como si fuera el CEO de la revolución. Llevaba horas ahí — tenía el saco abierto, la camisa desabotonada, sudor en la frente. La máscara de chimpancé tirada en el piso junto a él.</p>
           <p>Me saludó sin mucho afán, como quien saluda a un compañero de trabajo del que se espera sea competente. Sin drama. Sin discurso. Solo un «llegaste» seco.</p>
+          <div class="bubble-footer">
+            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
+            <strong>Paco</strong>
+          </div>
         </div>
 
         <div class="speech-bubble speech-bubble--hucho" data-reveal="fade-up" data-delay="900">
-          <div class="bubble-header">
-            <img class="avatar" src="images/avatars/hucho.png" alt="Hucho" onerror="this.style.display='none'">
-            <strong>Hucho:</strong>
-          </div>
           <p><em>Llegaste. Agarra la mochila. Esto no se va a vaciar solo.</em></p>
+          <div class="bubble-footer">
+            <img class="avatar" src="images/avatars/hucho.png" alt="Hucho" onerror="this.style.display='none'">
+            <strong>Hucho</strong>
+          </div>
         </div>
 
         <div class="prose" data-reveal="fade-up" data-delay="1100">
@@ -164,11 +188,11 @@
         </div>
 
         <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="1300">
-          <div class="bubble-header">
-            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
-            <strong>Paco:</strong>
-          </div>
           <p>72,000 pinches pesos. No era la revolución. Era una herida pequeña en un cuerpo enorme. Pero las heridas pequeñas también infectan. Pregúntale a cualquier diabético.</p>
+          <div class="bubble-footer">
+            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
+            <strong>Paco</strong>
+          </div>
         </div>
 
         <div class="sfx-wrap" data-reveal="slam" data-delay="1500">
@@ -180,44 +204,43 @@
         </div>
 
         <div class="speech-bubble speech-bubble--hucho" data-reveal="fade-up" data-delay="1900">
-          <div class="bubble-header">
+          <p><em>Las autoridades han sido alertadas. ¿Viste algo raro cuando entraste?</em></p>
+          <div class="bubble-footer">
             <img class="avatar" src="images/avatars/hucho.png" alt="Hucho" onerror="this.style.display='none'">
-            <strong>Hucho:</strong>
+            <strong>Hucho</strong>
           </div>
-          <p><em>Las autoridades han sido alertadas.</em></p>
-          <p><em>¿Viste algo raro cuando entraste?</em></p>
         </div>
 
         <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="2100">
-          <div class="bubble-header">
-            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
-            <strong>Paco:</strong>
-          </div>
           <p>No, nada raro.</p>
+          <div class="bubble-footer">
+            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
+            <strong>Paco</strong>
+          </div>
         </div>
 
         <div class="speech-bubble speech-bubble--hucho" data-reveal="fade-up" data-delay="2300">
-          <div class="bubble-header">
-            <img class="avatar" src="images/avatars/hucho.png" alt="Hucho" onerror="this.style.display='none'">
-            <strong>Hucho:</strong>
-          </div>
           <p><em>¿Entraste con la máscara puesta?</em></p>
+          <div class="bubble-footer">
+            <img class="avatar" src="images/avatars/hucho.png" alt="Hucho" onerror="this.style.display='none'">
+            <strong>Hucho</strong>
+          </div>
         </div>
 
         <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="2500">
-          <div class="bubble-header">
-            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
-            <strong>Paco:</strong>
-          </div>
           <p>...Sí.</p>
+          <div class="bubble-footer">
+            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
+            <strong>Paco</strong>
+          </div>
         </div>
 
         <div class="speech-bubble speech-bubble--hucho" data-reveal="fade-up" data-delay="2700">
-          <div class="bubble-header">
-            <img class="avatar" src="images/avatars/hucho.png" alt="Hucho" onerror="this.style.display='none'">
-            <strong>Hucho:</strong>
-          </div>
           <p><em>Eso fue un error, Paco. Alguien entrando a un banco con una máscara de chimpancé un sábado levanta sospechas hasta en este país. La máscara era para adentro. Para las cámaras. No para pasearte en la calle como si fuera pinche Halloween.</em></p>
+          <div class="bubble-footer">
+            <img class="avatar" src="images/avatars/hucho.png" alt="Hucho" onerror="this.style.display='none'">
+            <strong>Hucho</strong>
+          </div>
         </div>
 
         <div class="inner-voice" data-reveal="fade-up" data-delay="2900">
@@ -268,12 +291,12 @@
         </div>
 
         <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="600">
-          <div class="bubble-header">
-            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
-            <strong>Paco:</strong>
-          </div>
           <p>Caminé por la carretera. Era de noche pero no tarde aún. Los árboles del bosque se distinguían en la oscuridad como testigos mudos, verticales, que sabían más de esta ciudad que cualquiera de sus habitantes.</p>
           <p>Un perro callejero me miró con la misma cara de lástima que pone el güey del OXXO cuando pagas con monedas de a peso.</p>
+          <div class="bubble-footer">
+            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
+            <strong>Paco</strong>
+          </div>
         </div>
 
         <div class="fragment" data-reveal="fade-up" data-delay="900">
@@ -319,11 +342,11 @@
         </div>
 
         <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="600">
-          <div class="bubble-header">
-            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
-            <strong>Paco:</strong>
-          </div>
           <p>Una resistencia anti-sistema. O eso decían ellos. Yo vi gente cansada sentada alrededor de un fuego, igual que hace diez mil años, solo que en lugar de cazar mamuts estaban huyendo de Hacienda. Hillbillies con escopetas oxidadas. Gente sin mucha educación pero lista para la acción. De esos cabrones que no le saben a la teoría pero le saben a la chinga.</p>
+          <div class="bubble-footer">
+            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
+            <strong>Paco</strong>
+          </div>
         </div>
 
         <div class="prose" data-reveal="fade-up" data-delay="900">
@@ -332,19 +355,19 @@
         </div>
 
         <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="1200">
-          <div class="bubble-header">
-            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
-            <strong>Paco:</strong>
-          </div>
           <p>¿Tú también huyes de algo, viejo?</p>
+          <div class="bubble-footer">
+            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
+            <strong>Paco</strong>
+          </div>
         </div>
 
         <div class="speech-bubble speech-bubble--hucho" data-reveal="fade-up" data-delay="1500">
-          <div class="bubble-header">
-            <img class="avatar" src="images/avatars/refugio.png" alt="Don Refugio" onerror="this.style.display='none'">
-            <strong>Don Refugio:</strong>
-          </div>
           <p><em>Yo no huyo, muchacho. Yo espero. Que es peor. El que huye al menos tiene dirección. El que espera solo tiene fe, y la fe es la enfermedad más contagiosa del chingado mundo.</em></p>
+          <div class="bubble-footer">
+            <img class="avatar" src="images/avatars/refugio.png" alt="Don Refugio" onerror="this.style.display='none'">
+            <strong>Don Refugio</strong>
+          </div>
         </div>
 
         <div class="scrawl" data-reveal="fade-up" data-delay="1800">
@@ -353,12 +376,12 @@
         </div>
 
         <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="2100">
-          <div class="bubble-header">
-            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
-            <strong>Paco:</strong>
-          </div>
           <p>Hucho no llegó esa noche. Ni la siguiente. El asunto estaba caliente, decían. Tardaría dos días más. Me quedé junto a la fogata escuchando las historias de esa gente, con los 72,000 pesos debajo de mi cuerpo como un colchón ideológico.</p>
           <p>Pensé en todas las revoluciones que fracasaron. Son todas. Todas fracasaron. Pero el fracaso de una revolución dura más que el éxito de cualquier gobierno. ¿Eso nos hace héroes o pendejos? La respuesta, sospecho, es sí.</p>
+          <div class="bubble-footer">
+            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
+            <strong>Paco</strong>
+          </div>
         </div>
 
         <div class="scroll-indicator" data-reveal="fade-up" data-delay="2400">▼</div>
@@ -450,20 +473,20 @@
         </div>
 
         <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="600">
-          <div class="bubble-header">
-            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
-            <strong>Paco:</strong>
-          </div>
           <p>El motor tosió. Primero una tos. Luego silencio. El silencio de un motor en el aire es la cosa más aterradora del puto universo.</p>
           <p>Mi asiento estaba en dirección opuesta al movimiento de la avioneta. Así que cuando empezamos a caer, mi vista fue el cielo. Vi el cielo mientras caía. Las estrellas subiendo — o nosotros bajando — a una velocidad que no te da tiempo ni de mentarle la madre a dios.</p>
+          <div class="bubble-footer">
+            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
+            <strong>Paco</strong>
+          </div>
         </div>
 
         <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="900">
-          <div class="bubble-header">
-            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
-            <strong>Paco:</strong>
-          </div>
           <p>Volteé a ver hacia abajo. Una mancha oscura. Enorme. En medio de la noche. Escuché al Cóndor gritar que íbamos en dirección a un lago. Por alguna razón la avioneta dio vuelta y caíamos de cabeza. Sin música, sin cámara lenta, sin un último flashback de tu vida. Solo la nariz del avión apuntando al agua y la certeza absoluta, cristalina, perfecta, de que esto es lo último.</p>
+          <div class="bubble-footer">
+            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
+            <strong>Paco</strong>
+          </div>
         </div>
 
         <div class="sfx-wrap">
@@ -471,12 +494,12 @@
         </div>
 
         <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="1300">
-          <div class="bubble-header">
-            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
-            <strong>Paco:</strong>
-          </div>
           <p>El agua no salpicó — nos tragó. Golpeamos y aguanté la respiración. Pensé: si aguanto hasta que se detenga, puedo salir a la superficie. No hay pedo. Aguanto.</p>
           <p>Pero la avioneta no se detuvo. Seguía bajando. Vi la tenue luz de la superficie apagarse conforme bajábamos más y más. Habíamos caído en el Baikal. Sin duda. Ese lago no tiene fondo.</p>
+          <div class="bubble-footer">
+            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
+            <strong>Paco</strong>
+          </div>
         </div>
 
         <p class="whisper" data-reveal="fade-up" data-delay="1600">
