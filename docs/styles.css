@@ -115,7 +115,7 @@ img {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  transform: scale(1.15);
+  transform: scale(1.05);
   will-change: transform;
 }
 
@@ -152,14 +152,14 @@ img {
 }
 
 .panel__scrim--dark {
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .panel__scrim--gradient {
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.2) 0%,
-    rgba(0, 0, 0, 0.7) 100%
+    rgba(0, 0, 0, 0.35) 0%,
+    rgba(0, 0, 0, 0.8) 100%
   );
 }
 
@@ -759,12 +759,14 @@ img {
 }
 
 /* Epilogue */
-.panel--epilogo {
+.panel--epilogo,
+.panel--epilogo-post {
   background: var(--black);
   min-height: 100vh;
 }
 
-.panel--epilogo .panel__content {
+.panel--epilogo .panel__content,
+.panel--epilogo-post .panel__content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -775,9 +777,10 @@ img {
 .epilogo-text {
   font-family: 'Courier Prime', monospace;
   font-size: var(--fs-body);
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.8;
   max-width: 500px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
 
 .epilogo-text--final {
@@ -999,11 +1002,14 @@ body.shaking {
 .prose {
   font-family: 'Courier Prime', monospace;
   font-size: clamp(1rem, 2.5vw, 1.15rem);
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(255, 255, 255, 0.95);
   line-height: 1.9;
   border-left: 3px solid rgba(255, 255, 255, 0.15);
   padding: 1.2rem 1.5rem;
   max-width: 100%;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 0 6px 6px 0;
 }
 
 .prose p {
@@ -1056,6 +1062,7 @@ body.shaking {
   color: var(--white);
   display: block;
   line-height: 1.5;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 .fragment span:nth-child(even) {
@@ -1069,17 +1076,47 @@ body.shaking {
 
 /* --- .inner-voice — dualidad Fight Club / Lichtenstein glitch ---- */
 .inner-voice {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
+  display: flex;
+  flex-direction: column;
   border: 3px solid var(--red);
   overflow: hidden;
   position: relative;
   box-shadow: 4px 4px 0 var(--black), -2px -2px 0 rgba(69, 123, 157, 0.3);
 }
 
+/* Header bar — SOBRE-COMUNICA qué es esta sección */
+.inner-voice__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  font-family: 'Bangers', cursive;
+  font-size: clamp(0.7rem, 2vw, 0.85rem);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-align: center;
+  background: linear-gradient(90deg, var(--red) 0%, var(--red) 50%, var(--blue-dark) 50%, var(--blue-dark) 100%);
+  color: var(--white);
+  border-bottom: 2px solid var(--black);
+  animation: header-glitch 6s ease-in-out infinite;
+}
+
+@keyframes header-glitch {
+  0%, 85%, 100% { transform: translate(0); filter: none; }
+  88% { transform: translate(-2px, 0); filter: hue-rotate(90deg); }
+  91% { transform: translate(2px, 0); filter: hue-rotate(-90deg); }
+  94% { transform: translate(0); filter: none; }
+}
+
+/* Grid for the two voices */
+.inner-voice__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
 /* Glitch scanline overlay */
-.inner-voice::before {
+.inner-voice__grid::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -1094,8 +1131,8 @@ body.shaking {
   z-index: 2;
 }
 
-/* Ben-Day dots overlay for Lichtenstein feel */
-.inner-voice::after {
+/* Ben-Day dots overlay */
+.inner-voice__grid::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -1122,46 +1159,35 @@ body.shaking {
   color: var(--white);
   line-height: 1.5;
   border-right: 4px solid var(--red);
-  background: linear-gradient(135deg, rgba(230, 57, 70, 0.15) 0%, rgba(0, 0, 0, 0.9) 100%);
+  background: linear-gradient(135deg, rgba(230, 57, 70, 0.25) 0%, rgba(10, 10, 10, 0.95) 100%);
 }
 
-/* Cobarde — anxious, blue tint, smaller, glitch-unstable */
+/* Cobarde — anxious, blue tint, glitch-unstable */
 .inner-voice__b {
   font-family: 'Courier Prime', monospace;
   font-style: italic;
   font-size: clamp(0.85rem, 2.2vw, 0.95rem);
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.85);
   line-height: 1.7;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(29, 53, 87, 0.3) 100%);
+  background: linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(29, 53, 87, 0.4) 100%);
   animation: inner-voice-glitch 8s ease-in-out infinite;
 }
 
 @keyframes inner-voice-glitch {
-  0%, 90%, 100% {
-    transform: translate(0);
-    filter: none;
-  }
-  92% {
-    transform: translate(-1px, 1px);
-    filter: hue-rotate(90deg);
-  }
-  94% {
-    transform: translate(1px, -1px);
-    filter: hue-rotate(-90deg) brightness(1.1);
-  }
-  96% {
-    transform: translate(0);
-    filter: none;
-  }
+  0%, 90%, 100% { transform: translate(0); filter: none; }
+  92% { transform: translate(-1px, 1px); filter: hue-rotate(90deg); }
+  94% { transform: translate(1px, -1px); filter: hue-rotate(-90deg) brightness(1.1); }
+  96% { transform: translate(0); filter: none; }
 }
 
 .inner-voice__label {
   display: block;
-  font-size: 0.75em;
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
   text-transform: uppercase;
   letter-spacing: 3px;
   margin-bottom: 0.8rem;
-  font-family: 'Courier Prime', monospace;
+  padding-bottom: 0.4rem;
+  font-family: 'Bangers', cursive;
   font-style: normal;
   font-weight: bold;
 }
@@ -1169,11 +1195,12 @@ body.shaking {
 .inner-voice__a .inner-voice__label {
   color: var(--red);
   text-shadow: 1px 1px 0 var(--black);
+  border-bottom: 2px solid rgba(230, 57, 70, 0.4);
 }
 
 .inner-voice__b .inner-voice__label {
   color: var(--blue-light);
-  opacity: 0.8;
+  border-bottom: 2px solid rgba(69, 123, 157, 0.3);
 }
 
 .inner-voice p {
@@ -1186,7 +1213,7 @@ body.shaking {
 
 /* Mobile: stack vertically */
 @media (max-width: 599px) {
-  .inner-voice {
+  .inner-voice__grid {
     grid-template-columns: 1fr;
   }
 
@@ -1222,18 +1249,87 @@ body.shaking {
   margin-bottom: 0;
 }
 
+/* --- .collage-cutout — recortes tipo secuestrador ---- */
+.collage-cutout {
+  display: block;
+  max-width: 220px;
+  margin: 1.5rem auto;
+  transform: rotate(var(--cutout-rotate, -2deg));
+  filter: contrast(1.3) saturate(1.4);
+  border: 3px solid var(--black);
+  box-shadow: 4px 4px 0 var(--black), 6px 6px 12px rgba(0,0,0,0.5);
+  clip-path: polygon(1% 3%, 4% 0%, 96% 2%, 100% 4%, 98% 96%, 95% 100%, 3% 98%, 0% 95%);
+}
+
+.collage-cutout--left {
+  margin-left: 1rem;
+  margin-right: auto;
+  --cutout-rotate: 3deg;
+}
+
+.collage-cutout--right {
+  margin-left: auto;
+  margin-right: 1rem;
+  --cutout-rotate: -3deg;
+}
+
+.collage-cutout--sm {
+  max-width: 160px;
+}
+
+.collage-cutout--lg {
+  max-width: 300px;
+}
+
+.collage-cutout--taped {
+  --cutout-rotate: 1deg;
+  border: none;
+  box-shadow: 6px 6px 16px rgba(0,0,0,0.6);
+  position: relative;
+}
+
+.collage-cutout--taped::before,
+.collage-cutout--taped::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 20px;
+  background: rgba(255, 255, 200, 0.5);
+  z-index: 1;
+}
+
+.collage-cutout--taped::before {
+  top: -8px;
+  left: 20%;
+  transform: rotate(-5deg);
+}
+
+.collage-cutout--taped::after {
+  bottom: -8px;
+  right: 20%;
+  transform: rotate(3deg);
+}
+
+/* Transition panel for collage between sections */
+.panel--transition {
+  min-height: auto;
+  padding: 3rem 0;
+  background: var(--black);
+}
+
 /* --- .whisper — pensamiento atenuado ---- */
 .whisper {
   font-family: 'Courier Prime', monospace;
   font-size: clamp(0.85rem, 2.2vw, 0.95rem);
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.9);
   letter-spacing: 2px;
   line-height: 1.8;
   padding: 0.8rem 1.2rem;
   font-style: italic;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.4);
   border-left: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 0 4px 4px 0;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 /* --- .scream — grito visual ---- */
@@ -1326,7 +1422,275 @@ body.shaking {
 }
 
 /* ═══════════════════════════════════════════
-   18. AVATARS (character headshots)
+   18. PACO NARRA (voice-over cinematográfico)
+   ═══════════════════════════════════════════ */
+.paco-narra {
+  background: rgba(10, 10, 10, 0.85);
+  border-left: 4px solid var(--red);
+  border-radius: 0 8px 8px 0;
+  padding: 1.2rem 1.5rem;
+  color: rgba(255, 255, 255, 0.92);
+  font-family: 'Courier Prime', monospace;
+  font-style: italic;
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  max-width: 100%;
+  position: relative;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+
+  /* Reveal */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.paco-narra.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.paco-narra__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(230, 57, 70, 0.3);
+}
+
+.paco-narra__header .avatar {
+  width: 36px;
+  height: 36px;
+  border-width: 2px;
+  box-shadow: 1px 1px 0 var(--black);
+}
+
+.paco-narra__label {
+  font-family: 'Bangers', cursive;
+  font-size: 0.75rem;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--red);
+}
+
+.paco-narra p {
+  margin-bottom: 0.8em;
+}
+
+.paco-narra p:last-of-type {
+  margin-bottom: 0;
+}
+
+/* ═══════════════════════════════════════════
+   18a-2. HUCHO NARRA (voz interna del líder)
+   ═══════════════════════════════════════════ */
+.hucho-narra {
+  background: rgba(30, 5, 5, 0.85);
+  border-right: 4px solid var(--red);
+  border-radius: 8px 0 0 8px;
+  padding: 1.2rem 1.5rem;
+  color: rgba(255, 255, 255, 0.92);
+  font-family: 'Courier Prime', monospace;
+  font-style: italic;
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  max-width: 100%;
+  position: relative;
+  box-shadow: 0 2px 12px rgba(230, 57, 70, 0.15);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  margin-left: auto;
+  margin-right: 0;
+
+  /* Reveal */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.hucho-narra.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hucho-narra__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(230, 57, 70, 0.4);
+  justify-content: flex-end;
+}
+
+.hucho-narra__header .avatar {
+  width: 36px;
+  height: 36px;
+  border-width: 2px;
+  box-shadow: 1px 1px 0 var(--black);
+  order: 2;
+}
+
+.hucho-narra__label {
+  font-family: 'Bangers', cursive;
+  font-size: 0.75rem;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--red);
+  order: 1;
+}
+
+.hucho-narra p {
+  margin-bottom: 0.8em;
+}
+
+.hucho-narra p:last-of-type {
+  margin-bottom: 0;
+}
+
+/* ═══════════════════════════════════════════
+   18b. MINI-CITAS (autores referenciados)
+   ═══════════════════════════════════════════ */
+.mini-cita {
+  background: rgba(30, 30, 30, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  padding: 0.7rem 1rem;
+  max-width: 85%;
+  margin: 0.3rem 0;
+  font-family: 'Courier Prime', monospace;
+  font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+  line-height: 1.5;
+
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.mini-cita.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mini-cita__author {
+  display: block;
+  font-style: normal;
+  font-size: 0.7em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.35);
+  margin-top: 0.3rem;
+}
+
+/* ═══════════════════════════════════════════
+   18c. SPEECH BUBBLE — DON REFUGIO
+   ═══════════════════════════════════════════ */
+.speech-bubble--refugio {
+  margin-left: auto;
+  margin-right: 0;
+  border-color: var(--yellow);
+  box-shadow: 6px 6px 0 rgba(241, 196, 15, 0.3);
+}
+
+.speech-bubble--refugio::after {
+  content: "";
+  position: absolute;
+  bottom: -18px;
+  right: 28px;
+  width: 0;
+  height: 0;
+  border: 18px solid transparent;
+  border-top-color: var(--yellow);
+  border-bottom: 0;
+  border-left: 0;
+}
+
+.speech-bubble--refugio::before {
+  content: "";
+  position: absolute;
+  bottom: -14px;
+  right: 30px;
+  width: 0;
+  height: 0;
+  border: 15px solid transparent;
+  border-top-color: var(--bubble-bg);
+  border-bottom: 0;
+  border-left: 0;
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════════
+   18d. EPILOGO WAKE-UP ANIMATION
+   ═══════════════════════════════════════════ */
+.epilogo-wake {
+  filter: blur(12px);
+  opacity: 0.2;
+  animation: wake-up 5s ease-out forwards;
+  animation-play-state: paused;
+}
+
+.panel--epilogo.panel--active .epilogo-wake {
+  animation-play-state: running;
+}
+
+@keyframes wake-up {
+  0% {
+    filter: blur(12px);
+    opacity: 0.2;
+  }
+  30% {
+    filter: blur(8px);
+    opacity: 0.4;
+  }
+  60% {
+    filter: blur(3px);
+    opacity: 0.7;
+  }
+  100% {
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   18e. SPLASH PANELS (image-first presentation)
+   ═══════════════════════════════════════════ */
+.panel--splash {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--black);
+}
+
+.panel--splash .panel__bg {
+  background-size: contain;
+  background-position: center;
+  transform: none;
+  opacity: 0.85;
+}
+
+.panel--splash .panel__content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+}
+
+.splash-text {
+  font-family: 'Courier Prime', monospace;
+  font-style: italic;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.8;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+/* ═══════════════════════════════════════════
+   19. AVATARS (character headshots)
    ═══════════════════════════════════════════ */
 .avatar {
   width: 72px;
@@ -1550,7 +1914,108 @@ footer {
 }
 
 /* ═══════════════════════════════════════════
-   21. REDUCED MOTION
+   21. SCROLL LOCK OVERLAY (epilogo wake)
+   ═══════════════════════════════════════════ */
+.scroll-lock-overlay {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: rgba(10, 10, 10, 0.85);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50px;
+  padding: 0.6rem 1.2rem 0.6rem 0.6rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+
+.scroll-lock-overlay.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-lock-ring {
+  position: relative;
+  width: 36px;
+  height: 36px;
+}
+
+.scroll-lock-ring svg {
+  width: 36px;
+  height: 36px;
+  transform: rotate(-90deg);
+}
+
+.scroll-lock-ring circle {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 2.5;
+  stroke-dasharray: 100.53;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: lock-countdown 5s linear forwards;
+}
+
+.scroll-lock-overlay.active .scroll-lock-ring circle {
+  animation: lock-countdown 5s linear forwards;
+}
+
+@keyframes lock-countdown {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: 100.53; }
+}
+
+.scroll-lock-seconds {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bangers', cursive;
+  font-size: 1rem;
+  color: var(--white);
+}
+
+.scroll-lock-label {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 1px;
+}
+
+@media (max-width: 599px) {
+  .scroll-lock-overlay {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.4rem 0.8rem 0.4rem 0.4rem;
+  }
+
+  .scroll-lock-ring {
+    width: 28px;
+    height: 28px;
+  }
+
+  .scroll-lock-ring svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .scroll-lock-seconds {
+    font-size: 0.8rem;
+  }
+
+  .scroll-lock-label {
+    font-size: 0.7rem;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   22. REDUCED MOTION
    ═══════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
