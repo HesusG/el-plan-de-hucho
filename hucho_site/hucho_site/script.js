@@ -81,12 +81,17 @@
   // 4. INPUT HANDLERS
   // ═══════════════════════════════════════════
 
-  // Start button
+  // Start on button click OR any touch on the overlay
   if (startBtn) {
     startBtn.addEventListener('click', function (e) {
       e.preventDefault();
       startStory();
     });
+  }
+  if (introOverlay) {
+    introOverlay.addEventListener('touchstart', function () {
+      startStory();
+    }, { passive: true });
   }
 
   // ═══════════════════════════════════════════
