@@ -55,6 +55,19 @@ SCENES = {
         f"Shadows dominate. The mask in the box seems to glow with menace. "
         f"{STYLE} Combined with Hotline Miami neon aesthetic."
     ),
+    "ch3_huida": (
+        f"Generate a scene: A lone figure in a rumpled suit walking down a dark highway at night. "
+        f"Behind him, scattered Mexican peso bills float and swirl in the air like leaves in wind. "
+        f"A brown chimpanzee mask lies discarded on the wet asphalt road. "
+        f"The background is PSYCHEDELIC and hallucinatory — the sky melts like liquid, "
+        f"neon pink and electric blue streaks bleed across the horizon like the music video "
+        f"Rhinestone Eyes by Gorillaz. Reality distorts and warps around the walking figure. "
+        f"Police siren lights (red/blue) splash across wet asphalt from somewhere unseen. "
+        f"The road surface ripples and bends like it's alive. Trees on both sides are twisted "
+        f"and grotesque silhouettes. Hotline Miami neon violence aesthetic — hot pink, cyan, "
+        f"electric purple bleeding through the scene. Paranoid, feverish, dreamlike. "
+        f"{STYLE}"
+    ),
     "bank_heist": (
         f"Generate a scene: Floor 22 of an empty corporate office building. Fluorescent lights "
         f"buzz overhead. Polished marble floor reflects everything. A lone figure wearing a brown "

@@ -43,17 +43,21 @@ STYLE = (
 
 CHARACTERS = {
     "paco": (
-        f"Generate a portrait of a young Mexican man, approximately 28 years old. "
-        f"Short dark hair, angular jaw, nervous intense eyes, slight stubble. "
+        f"Generate a portrait of a Mexican man from Guadalajara, approximately 28 years old. "
+        f"Slightly receding hairline with visible widow's peak entries, short dark hair. "
+        f"Somewhat Arabic-looking facial features — prominent brow, strong nose. "
+        f"Very light stubble, just a few visible hairs on chin and jaw, not a full beard. "
         f"Wearing a grey-blue executive suit with loosened tie. "
         f"Expression: determined but scared, like someone about to do something dangerous. "
-        f"Latino/Mexican features. {STYLE}"
+        f"Mexican mestizo features with slight Middle Eastern resemblance. {STYLE}"
     ),
     "hucho": (
-        f"Generate a portrait of a charismatic Mexican man, early 30s. "
-        f"Strong jaw, piercing dark eyes with an intense focused stare, short hair with sweat on forehead. "
+        f"Generate a portrait of a Mexican man, 33 years old but looks very young, "
+        f"barely 18-20 years old. Baby face, round head shape. "
+        f"Buzzcut hair — very short, almost shaved. Wears glasses (rectangular frames). "
+        f"Looks cute and harmless, which makes him more unsettling as a criminal mastermind. "
         f"Wearing an open suit jacket with unbuttoned white dress shirt showing chest. "
-        f"Expression: calm confidence mixed with exhaustion, like a revolutionary leader. "
+        f"Expression: calm intelligence behind innocent-looking eyes, a wolf in sheep's clothing. "
         f"A brown chimpanzee mask-cap with red visor sitting beside him. "
         f"Latino/Mexican features. {STYLE}"
     ),
