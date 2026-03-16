@@ -1933,9 +1933,15 @@ body.shaking {
    ═══════════════════════════════════════════ */
 .epilogo-wake {
   filter: blur(12px);
-  opacity: 0.2;
   animation: wake-up 5s ease-out forwards;
   animation-play-state: paused;
+}
+
+/* Override reveal system — wake-up animation controls opacity/transform */
+.epilogo-wake[data-reveal].revealed {
+  opacity: 0.2;
+  transform: none;
+  transition: none;
 }
 
 .panel--epilogo.panel--active .epilogo-wake {
