@@ -228,42 +228,6 @@
     </section>
 
     <!-- ═══════════════════════════════════════
-         EL PLAN DE HUCHO — Blueprint
-         ═══════════════════════════════════════ -->
-    <section class="panel panel--blueprint" aria-label="El Plan de Hucho">
-      <div class="panel__frame"></div>
-
-      <div class="panel__content stack stack--loose text-center">
-        <p class="blueprint-title" data-reveal="fade-up">EL PLAN DE HUCHO</p>
-
-        <div class="plan-block plan-block--struck" data-reveal="fade-up" data-delay="400">
-          <span class="plan-label plan-label--a">PLAN A</span>
-          <p>Entrar al edificio juntos. Subir al piso 22. Abrir la caja. Salir por la puerta trasera con el dinero. Tomar un taxi pirata hasta el kilómetro 40. Desaparecer antes del lunes.</p>
-          <p>Tiempo estimado: 45 minutos.</p>
-          <p>Probabilidad de que Paco la cague: 100%.</p>
-        </div>
-
-        <div class="plan-block" data-reveal="fade-up" data-delay="800">
-          <span class="plan-label plan-label--b">PLAN B</span>
-          <ol>
-            <li>Paco entra solo. Yo llego antes y espero adentro — si nos ven llegar juntos, somos una conspiración. Si llegamos separados, somos dos pendejos con mal timing.</li>
-            <li>La máscara es solo para las cámaras. NO para la calle. (Paco, si estás leyendo esto: NO te la pongas en la calle.)</li>
-            <li>Vaciamos la caja en la mochila tech-wear. 72 mil pesos. No es mucho pero es todo lo que tienen.</li>
-            <li>Salimos por rutas separadas. Yo por las escaleras de emergencia. Paco por donde pueda — ese güey siempre improvisa.</li>
-            <li>Punto de encuentro: Kilómetro 40. Carretera federal. Campamento de la resistencia.</li>
-            <li>Si algo sale mal — y algo siempre sale mal — no me esperes. Yo te encuentro.</li>
-          </ol>
-        </div>
-
-        <div class="scrawl" data-reveal="fade-up" data-delay="1200" style="text-align: center;">
-          <p>Si estás leyendo esto, el plan ya empezó.</p>
-          <p>No hay vuelta atrás, cabrón.</p>
-          <p>— H.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════
          PANEL 2 SPLASH: EL GOLPE
          ═══════════════════════════════════════ -->
     <section class="panel panel--splash" id="panel-golpe" aria-label="El Golpe">
@@ -372,6 +336,54 @@
             <span class="paco-narra__label">PACO NARRA</span>
           </div>
           <p>Entonces escuchamos las sirenas. A lo lejos, pero acercándose. Hucho ni se inmutó.</p>
+        </div>
+
+        <!-- ═══════════════════════════════════════
+             EL PLAN DE HUCHO — Blueprint (se revela cuando suena la alarma)
+             ═══════════════════════════════════════ -->
+        <div class="blueprint-insert" data-reveal="fade-up" data-delay="2400">
+          <section class="panel panel--blueprint" aria-label="El Plan de Hucho">
+            <div class="panel__frame"></div>
+            <div class="panel__content stack stack--loose text-center">
+              <p class="blueprint-title" data-reveal="fade-up">EL PLAN DE HUCHO</p>
+
+              <p class="plan-label" data-reveal="fade-up" data-delay="400">PLAN <del class="plan-del-letter">A</del> <ins class="plan-ins-letter">B</ins></p>
+
+              <div class="plan-block" data-reveal="fade-up" data-delay="800">
+                <ol>
+                  <li>
+                    <del>Entrar al edificio juntos. Subir al piso 22.</del><br>
+                    <ins>Paco entra solo. Yo llego antes y espero adentro — si nos ven llegar juntos, somos una conspiración. Si llegamos separados, somos dos pendejos con mal timing.</ins>
+                  </li>
+                  <li>
+                    <del>Ponerse la máscara al entrar.</del><br>
+                    <ins>La máscara es solo para las cámaras. NO para la calle. (Paco, si estás leyendo esto: NO te la pongas en la calle.)</ins>
+                  </li>
+                  <li>
+                    <del>Abrir la caja. Salir juntos por la puerta trasera con el dinero.</del><br>
+                    <ins>Vaciamos la caja en la mochila tech-wear. 72 mil pesos. No es mucho pero es todo lo que tienen.</ins>
+                  </li>
+                  <li>
+                    <del>Tomar un taxi pirata juntos hasta el kilómetro 40. Desaparecer antes del lunes.</del><br>
+                    <ins>Salimos por rutas separadas. Yo por las escaleras de emergencia. Paco por donde pueda — ese güey siempre improvisa.</ins>
+                  </li>
+                  <li>Punto de encuentro: Kilómetro 40. Carretera federal. Campamento de la resistencia.</li>
+                  <li><ins>Si algo sale mal — y algo siempre sale mal — no me esperes. Yo te encuentro.</ins></li>
+                </ol>
+              </div>
+
+              <div class="plan-block plan-block--struck" data-reveal="fade-up" data-delay="1000">
+                <p>Tiempo estimado: 45 minutos.</p>
+                <p>Probabilidad de que Paco la cague: 100%.</p>
+              </div>
+
+              <div class="scrawl" data-reveal="fade-up" data-delay="1200" style="text-align: center;">
+                <p>Si estás leyendo esto, el plan ya empezó.</p>
+                <p>No hay vuelta atrás, cabrón.</p>
+                <p>— H.</p>
+              </div>
+            </div>
+          </section>
         </div>
 
         <div class="speech-bubble speech-bubble--hucho" data-reveal="fade-up" data-delay="2500">
@@ -984,20 +996,6 @@
     </section>
 
   </main>
-
-  <!-- Navigation arrows -->
-  <div class="nav-arrows" id="nav-arrows">
-    <button class="nav-arrow nav-arrow--back" id="back-arrow" aria-label="Retroceder">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 15 12 9 18 15"></polyline>
-      </svg>
-    </button>
-    <button class="nav-arrow nav-arrow--advance" id="advance-arrow" aria-label="Avanzar">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9"></polyline>
-      </svg>
-    </button>
-  </div>
 
   <footer>
     <p>Inspirado en un sueño rebelde narrado por Paco y orquestado por Hucho.</p>

@@ -1509,61 +1509,6 @@ body.shaking {
   color: #0a0a0a;
 }
 
-/* --- Navigation arrows (fixed) ---- */
-.nav-arrows {
-  position: fixed;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
-}
-
-.nav-arrow {
-  appearance: none;
-  background: rgba(255, 255, 255, 0.08);
-  border: 2px solid rgba(255, 255, 255, 0.25);
-  color: white;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(4px);
-  transition: opacity 0.3s, border-color 0.3s;
-}
-
-.nav-arrow:hover {
-  border-color: rgba(255, 255, 255, 0.6);
-}
-
-.nav-arrow--advance {
-  animation: arrow-bounce-down 2s ease-in-out infinite;
-}
-
-.nav-arrow--back {
-  opacity: 0.4;
-  transition: opacity 0.3s;
-}
-
-.nav-arrow--back.active {
-  opacity: 1;
-}
-
-.nav-arrow.hidden {
-  opacity: 0;
-  pointer-events: none;
-  animation: none;
-}
-
-@keyframes arrow-bounce-down {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(5px); }
-}
 
 /* --- Reveal states for new components ---- */
 .prose[data-reveal],
@@ -1856,6 +1801,36 @@ body.shaking {
 
 .plan-label--b {
   color: var(--yellow);
+}
+
+/* Plan A→B inline corrections */
+.plan-del-letter {
+  color: var(--red);
+  text-decoration: line-through;
+  text-decoration-thickness: 4px;
+  font-family: 'Bangers', cursive;
+}
+
+.plan-ins-letter {
+  color: var(--yellow);
+  text-decoration: none;
+  font-family: 'Bangers', cursive;
+}
+
+.plan-block del {
+  color: rgba(168, 218, 220, 0.45);
+  text-decoration: line-through;
+  text-decoration-color: var(--red);
+  text-decoration-thickness: 2px;
+}
+
+.plan-block ins {
+  color: var(--yellow);
+  text-decoration: none;
+}
+
+.blueprint-insert {
+  margin: 2rem 0;
 }
 
 .plan-block p {

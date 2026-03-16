@@ -12,8 +12,6 @@
   // 1. ELEMENTS
   // ═══════════════════════════════════════════
   var progressBar = document.querySelector('.progress-bar');
-  var advanceBtn = document.getElementById('advance-arrow');
-  var backBtn = document.getElementById('back-arrow');
   var introOverlay = document.getElementById('intro-overlay');
   var startBtn = document.getElementById('start-btn');
   var flashOverlay = document.querySelector('.flash-overlay');
@@ -77,12 +75,6 @@
     revealedCount++;
     updateProgress();
     updateChapterNav();
-    updateBackButton();
-
-    // Hide advance arrow at end
-    if (revealedCount >= allSteps.length && advanceBtn) {
-      advanceBtn.classList.add('hidden');
-    }
   }
 
   // ═══════════════════════════════════════════
@@ -101,26 +93,6 @@
       goBack();
     }
   });
-
-  // Advance button
-  if (advanceBtn) {
-    advanceBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      if (!started) {
-        startStory();
-        return;
-      }
-      advance();
-    });
-  }
-
-  // Back button
-  if (backBtn) {
-    backBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      goBack();
-    });
-  }
 
   // Start button
   if (startBtn) {
@@ -197,13 +169,6 @@
   function goBack() {
     if (!started) return;
     window.scrollBy({ top: -window.innerHeight * 0.7, behavior: 'smooth' });
-  }
-
-  function updateBackButton() {
-    if (!backBtn) return;
-    if (revealedCount > 0) {
-      backBtn.classList.add('active');
-    }
   }
 
   // ═══════════════════════════════════════════
