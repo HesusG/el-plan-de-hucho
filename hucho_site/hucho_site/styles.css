@@ -1441,10 +1441,6 @@ body.shaking {
   text-shadow: 4px 4px 0 var(--black);
 }
 
-/* --- Hide scroll indicators (replaced by advance arrow) ---- */
-.scroll-indicator {
-  display: none !important;
-}
 
 /* --- Intro overlay ---- */
 .intro-overlay {
@@ -1473,7 +1469,7 @@ body.shaking {
 .intro-overlay__icon {
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
-  animation: arrow-bounce 1.5s ease-in-out infinite;
+  animation: bounce-down 1.5s ease-in-out infinite;
   opacity: 0.6;
 }
 
@@ -1484,12 +1480,6 @@ body.shaking {
   margin-bottom: 0.5rem;
 }
 
-.intro-overlay__hint {
-  font-family: 'Courier Prime', monospace;
-  font-size: clamp(0.7rem, 2vw, 0.8rem);
-  color: rgba(255, 255, 255, 0.35);
-  margin-bottom: 2.5rem;
-}
 
 .intro-overlay__start {
   appearance: none;
@@ -1543,11 +1533,6 @@ body.shaking {
 .scrawl[data-reveal].revealed {
   opacity: 1;
   transform: rotate(-1.5deg) translateY(0);
-}
-
-.scream[data-reveal].revealed {
-  opacity: 1;
-  transform: skewX(-3deg) translateY(0);
 }
 
 /* Fragment children stagger */
@@ -1933,38 +1918,20 @@ body.shaking {
    ═══════════════════════════════════════════ */
 .epilogo-wake {
   filter: blur(12px);
-  animation: wake-up 5s ease-out forwards;
-  animation-play-state: paused;
+  opacity: 0.2;
+  transition: filter 5s ease-out, opacity 5s ease-out;
 }
 
-/* Override reveal system — wake-up animation controls opacity/transform */
+/* Override reveal system — wake transition controls opacity */
 .epilogo-wake[data-reveal].revealed {
   opacity: 0.2;
   transform: none;
   transition: none;
 }
 
-.panel--epilogo.panel--active .epilogo-wake {
-  animation-play-state: running;
-}
-
-@keyframes wake-up {
-  0% {
-    filter: blur(12px);
-    opacity: 0.2;
-  }
-  30% {
-    filter: blur(8px);
-    opacity: 0.4;
-  }
-  60% {
-    filter: blur(3px);
-    opacity: 0.7;
-  }
-  100% {
-    filter: blur(0);
-    opacity: 1;
-  }
+.epilogo-wake.waking {
+  filter: blur(0);
+  opacity: 1;
 }
 
 /* ═══════════════════════════════════════════

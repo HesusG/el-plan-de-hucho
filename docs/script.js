@@ -197,8 +197,19 @@
   // ═══════════════════════════════════════════
   var shakeTriggered = false;
   var waterTriggered = false;
+  var wakeTriggered = false;
 
   function checkSpecialEffects(el) {
+    // Epilogo wake — scroll lock 5s + blur→focus
+    if (!wakeTriggered && el.classList.contains('epilogo-wake')) {
+      wakeTriggered = true;
+      document.body.style.overflow = 'hidden';
+      el.classList.add('waking');
+      setTimeout(function () {
+        document.body.style.overflow = '';
+      }, 5000);
+    }
+
     // BOOM SFX → shake + flash
     if (!shakeTriggered && el.classList.contains('sfx--boom')) {
       shakeTriggered = true;
