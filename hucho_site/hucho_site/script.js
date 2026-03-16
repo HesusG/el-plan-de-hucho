@@ -81,19 +81,6 @@
   // 4. INPUT HANDLERS
   // ═══════════════════════════════════════════
 
-  // Keyboard shortcuts (optional — browser handles native scroll)
-  window.addEventListener('keydown', function (e) {
-    if (!started) return;
-    if (e.code === 'Space' || e.code === 'ArrowDown') {
-      e.preventDefault();
-      advance();
-    }
-    if (e.code === 'ArrowUp') {
-      e.preventDefault();
-      goBack();
-    }
-  });
-
   // Start button
   if (startBtn) {
     startBtn.addEventListener('click', function (e) {
@@ -137,38 +124,6 @@
         }
       });
     });
-  }
-
-  // ═══════════════════════════════════════════
-  // 6. ADVANCE — scroll to next unrevealed
-  // ═══════════════════════════════════════════
-  function advance() {
-    if (!started) {
-      startStory();
-      return;
-    }
-
-    // Find first unrevealed step
-    for (var i = 0; i < allSteps.length; i++) {
-      var el = allSteps[i];
-      var isTypewriter = el.getAttribute('data-reveal') === 'typewriter';
-      var isRevealed = isTypewriter
-        ? el.textContent.trim() !== ''
-        : el.classList.contains('revealed');
-
-      if (!isRevealed) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        return;
-      }
-    }
-  }
-
-  // ═══════════════════════════════════════════
-  // 6b. GO BACK — scroll up
-  // ═══════════════════════════════════════════
-  function goBack() {
-    if (!started) return;
-    window.scrollBy({ top: -window.innerHeight * 0.7, behavior: 'smooth' });
   }
 
   // ═══════════════════════════════════════════
