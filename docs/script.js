@@ -104,33 +104,16 @@
     if (started) return;
     started = true;
 
-    // 1. Scroll to top BEFORE touching overlay (while opaque, jump is invisible)
-    window.scrollTo(0, 0);
-
-    // 2. Hide intro overlay with transitionend
+    // Hide intro overlay instantly
     if (introOverlay) {
-      function onFaded() {
-        introOverlay.style.display = 'none';
-        introOverlay.removeEventListener('transitionend', onFaded);
-      }
-      introOverlay.addEventListener('transitionend', onFaded);
-      // Force reflow so browser registers initial state before transition
-      introOverlay.offsetHeight;
-      introOverlay.classList.add('hidden');
-
-      // Safety net: if transitionend never fires (iOS edge case)
-      setTimeout(function () {
-        introOverlay.style.display = 'none';
-      }, 1500);
+      introOverlay.style.display = 'none';
     }
 
-    // 3. Start observing after a frame (let scroll reset settle)
-    requestAnimationFrame(function () {
-      allSteps.forEach(function (el) {
-        if (!el.classList.contains('revealed')) {
-          revealObserver.observe(el);
-        }
-      });
+    // Start observing
+    allSteps.forEach(function (el) {
+      if (!el.classList.contains('revealed')) {
+        revealObserver.observe(el);
+      }
     });
   }
 
