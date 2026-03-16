@@ -72,7 +72,6 @@ body {
   color: var(--white);
   overflow-x: hidden;
   line-height: 1.5;
-  touch-action: none;
   overscroll-behavior: none;
   -webkit-font-smoothing: antialiased;
 }
@@ -2339,17 +2338,6 @@ body.shaking {
     gap: 1.5rem;
   }
 
-  /* Scroll lock overlay — more visible on mobile */
-  .scroll-lock-overlay {
-    left: 50%;
-    right: auto;
-    transform: translateX(-50%) translateY(20px);
-  }
-
-  .scroll-lock-overlay.active {
-    transform: translateX(-50%) translateY(0);
-  }
-
   /* Panel transition for collage — less padding */
   .panel--transition {
     padding: 2rem 0;
@@ -2453,114 +2441,7 @@ footer {
 }
 
 /* ═══════════════════════════════════════════
-   21. SCROLL LOCK OVERLAY (epilogo wake)
-   ═══════════════════════════════════════════ */
-.scroll-lock-overlay {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  background: rgba(10, 10, 10, 0.85);
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  border-radius: 50px;
-  padding: 0.6rem 1.2rem 0.6rem 0.6rem;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  pointer-events: none;
-}
-
-.scroll-lock-overlay.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.scroll-lock-ring {
-  position: relative;
-  width: 36px;
-  height: 36px;
-}
-
-.scroll-lock-ring svg {
-  width: 36px;
-  height: 36px;
-  transform: rotate(-90deg);
-}
-
-.scroll-lock-ring circle {
-  fill: none;
-  stroke: var(--red);
-  stroke-width: 2.5;
-  stroke-dasharray: 100.53;
-  stroke-dashoffset: 0;
-  stroke-linecap: round;
-  animation: lock-countdown 5s linear forwards;
-}
-
-.scroll-lock-overlay.active .scroll-lock-ring circle {
-  animation: lock-countdown 5s linear forwards;
-}
-
-@keyframes lock-countdown {
-  from { stroke-dashoffset: 0; }
-  to { stroke-dashoffset: 100.53; }
-}
-
-.scroll-lock-seconds {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Bangers', cursive;
-  font-size: 1rem;
-  color: var(--white);
-}
-
-.scroll-lock-label {
-  font-family: 'Courier Prime', monospace;
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 1px;
-}
-
-@media (max-width: 599px) {
-  .scroll-lock-overlay {
-    bottom: 1rem;
-    left: 50%;
-    right: auto;
-    transform: translateX(-50%) translateY(20px);
-    padding: 0.4rem 0.8rem 0.4rem 0.4rem;
-  }
-
-  .scroll-lock-overlay.active {
-    transform: translateX(-50%) translateY(0);
-  }
-
-  .scroll-lock-ring {
-    width: 28px;
-    height: 28px;
-  }
-
-  .scroll-lock-ring svg {
-    width: 28px;
-    height: 28px;
-  }
-
-  .scroll-lock-seconds {
-    font-size: 0.8rem;
-  }
-
-  .scroll-lock-label {
-    font-size: 0.7rem;
-  }
-}
-
-/* ═══════════════════════════════════════════
-   22. REDUCED MOTION
+   21. REDUCED MOTION
    ═══════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

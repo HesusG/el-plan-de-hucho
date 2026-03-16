@@ -1,7 +1,7 @@
 /*
  * El Plan de Hucho — Novela Gráfica
- * Step-based navigation: click/tap/keyboard to advance
- * No free scroll — the story controls the pace
+ * Scroll libre + IntersectionObserver reveal
+ * El usuario scrollea normalmente; elementos aparecen al entrar en viewport
  * Vanilla JS, no dependencies
  */
 
@@ -21,13 +21,11 @@
   // ═══════════════════════════════════════════
   // 2. BUILD STEP SEQUENCE
   // ═══════════════════════════════════════════
-  // Every [data-reveal] element is a step, except scroll indicators
   var allSteps = Array.from(
     document.querySelectorAll('[data-reveal]:not(.scroll-indicator)')
   );
 
-  var currentStep = -1;
-  var isAnimating = false;
+  var revealedCount = 0;
   var started = false;
 
   // Store typewriter original texts and clear them
@@ -41,47 +39,66 @@
   });
 
   // ═══════════════════════════════════════════
-  // 3. BLOCK MANUAL SCROLL
+  // 3. INTERSECTION OBSERVER
   // ═══════════════════════════════════════════
-  window.addEventListener('wheel', function (e) {
-    e.preventDefault();
-  }, { passive: false });
+  var revealObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting && !entry.target.classList.contains('revealed')) {
+        revealElement(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
 
-  window.addEventListener('touchmove', function (e) {
-    e.preventDefault();
-  }, { passive: false });
+  function revealElement(el) {
+    // Mark parent panel as active
+    var panel = el.closest('.panel');
+    if (panel) {
+      panel.classList.add('panel--active');
+    }
+
+    // Reveal: typewriter or instant
+    var revealType = el.getAttribute('data-reveal');
+    if (revealType === 'typewriter') {
+      var text = typewriterTexts.get(el);
+      if (text) {
+        typewrite(el, text, 35);
+      }
+    } else {
+      el.classList.add('revealed');
+    }
+
+    // Check for special effects
+    checkSpecialEffects(el);
+
+    // Stop observing — once revealed, stays revealed
+    revealObserver.unobserve(el);
+
+    // Update UI
+    revealedCount++;
+    updateProgress();
+    updateChapterNav();
+    updateBackButton();
+
+    // Hide advance arrow at end
+    if (revealedCount >= allSteps.length && advanceBtn) {
+      advanceBtn.classList.add('hidden');
+    }
+  }
 
   // ═══════════════════════════════════════════
   // 4. INPUT HANDLERS
   // ═══════════════════════════════════════════
 
-  // Touch swipe detection
-  var touchStartY = 0;
-
-  window.addEventListener('touchstart', function (e) {
-    touchStartY = e.touches[0].clientY;
-  }, { passive: true });
-
-  window.addEventListener('touchend', function (e) {
-    var delta = touchStartY - e.changedTouches[0].clientY;
-    if (delta > 30) advance();   // swipe up → advance
-    if (delta < -30) goBack();   // swipe down → go back
-  });
-
-  // Keyboard
+  // Keyboard shortcuts (optional — browser handles native scroll)
   window.addEventListener('keydown', function (e) {
-    var forwardKeys = ['Space', 'ArrowDown', 'ArrowRight', 'PageDown', 'Enter'];
-    var backKeys = ['ArrowUp', 'ArrowLeft', 'PageUp', 'Backspace'];
-    if (forwardKeys.indexOf(e.code) !== -1) {
+    if (!started) return;
+    if (e.code === 'Space' || e.code === 'ArrowDown') {
       e.preventDefault();
       advance();
     }
-    if (backKeys.indexOf(e.code) !== -1) {
+    if (e.code === 'ArrowUp') {
       e.preventDefault();
       goBack();
-    }
-    if (['Home', 'End'].indexOf(e.code) !== -1) {
-      e.preventDefault();
     }
   });
 
@@ -89,6 +106,10 @@
   if (advanceBtn) {
     advanceBtn.addEventListener('click', function (e) {
       e.preventDefault();
+      if (!started) {
+        startStory();
+        return;
+      }
       advance();
     });
   }
@@ -127,18 +148,16 @@
     // Scroll to top
     window.scrollTo(0, 0);
 
-    // Mark first panel as active
-    var firstPanel = document.querySelector('.panel');
-    if (firstPanel) firstPanel.classList.add('panel--active');
-
-    // Reveal first step after a beat
-    setTimeout(function () {
-      advance();
-    }, 300);
+    // Start observing all steps
+    allSteps.forEach(function (el) {
+      if (!el.classList.contains('revealed')) {
+        revealObserver.observe(el);
+      }
+    });
   }
 
   // ═══════════════════════════════════════════
-  // 6. ADVANCE — Core navigation
+  // 6. ADVANCE — scroll to next unrevealed
   // ═══════════════════════════════════════════
   function advance() {
     if (!started) {
@@ -146,92 +165,33 @@
       return;
     }
 
-    if (isAnimating) return;
-
-    currentStep++;
-    if (currentStep >= allSteps.length) {
-      currentStep = allSteps.length - 1;
-      // Hide arrow at end
-      if (advanceBtn) advanceBtn.classList.add('hidden');
-      return;
-    }
-
-    isAnimating = true;
-
-    var el = allSteps[currentStep];
-    var revealType = el.getAttribute('data-reveal');
-
-    // Mark parent panel as active
-    var panel = el.closest('.panel');
-    if (panel) {
-      panel.classList.add('panel--active');
-    }
-
-    // Scroll element into view
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-    // Reveal after scroll settles
-    setTimeout(function () {
-      if (revealType === 'typewriter') {
-        var text = typewriterTexts.get(el);
-        if (text) {
-          typewrite(el, text, 35);
-        }
-      } else {
-        el.classList.add('revealed');
+    // Find first unrevealed step
+    for (var i = 0; i < allSteps.length; i++) {
+      var el = allSteps[i];
+      if (!el.classList.contains('revealed') && el.getAttribute('data-reveal') !== 'typewriter') {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
       }
-
-      // Check for special effects
-      checkSpecialEffects(el);
-
-      // Update UI
-      updateProgress();
-      updateChapterNav();
-      updateBackButton();
-
-      // Allow next advance
-      setTimeout(function () {
-        isAnimating = false;
-      }, 350);
-    }, 400);
+      // For typewriter, check if it has text (already revealed)
+      if (el.getAttribute('data-reveal') === 'typewriter' && el.textContent.trim() === '') {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+    }
   }
 
   // ═══════════════════════════════════════════
-  // 6b. GO BACK — Reverse navigation
+  // 6b. GO BACK — scroll up
   // ═══════════════════════════════════════════
   function goBack() {
-    if (!started || isAnimating) return;
-    if (currentStep <= 0) return;
-
-    // Un-reveal current step
-    var el = allSteps[currentStep];
-    el.classList.remove('revealed');
-
-    // If typewriter, clear text
-    if (el.getAttribute('data-reveal') === 'typewriter') {
-      el.textContent = '';
-    }
-
-    currentStep--;
-
-    // Scroll to the now-current step
-    var prevEl = allSteps[currentStep];
-    prevEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-    // Show advance arrow again if it was hidden
-    if (advanceBtn) advanceBtn.classList.remove('hidden');
-
-    updateProgress();
-    updateChapterNav();
-    updateBackButton();
+    if (!started) return;
+    window.scrollBy({ top: -window.innerHeight * 0.7, behavior: 'smooth' });
   }
 
   function updateBackButton() {
     if (!backBtn) return;
-    if (currentStep > 0) {
+    if (revealedCount > 0) {
       backBtn.classList.add('active');
-    } else {
-      backBtn.classList.remove('active');
     }
   }
 
@@ -316,33 +276,34 @@
   function jumpToPanel(targetSection) {
     if (!started) startStory();
 
-    // Find the first step inside or after this section
-    var targetFirstStep = -1;
+    // Reveal all steps up to and including this section (instantly)
+    var found = false;
     for (var i = 0; i < allSteps.length; i++) {
-      if (targetSection.contains(allSteps[i])) {
-        targetFirstStep = i;
+      var el = allSteps[i];
+
+      if (!el.classList.contains('revealed')) {
+        var revealType = el.getAttribute('data-reveal');
+        if (revealType === 'typewriter') {
+          var text = typewriterTexts.get(el);
+          if (text) el.textContent = text;
+        }
+        el.classList.add('revealed');
+        revealObserver.unobserve(el);
+        revealedCount++;
+
+        var panel = el.closest('.panel');
+        if (panel) panel.classList.add('panel--active');
+      }
+
+      if (targetSection.contains(el)) {
+        found = true;
+      }
+
+      // Stop after we've passed the target section
+      if (found && !targetSection.contains(el)) {
         break;
       }
     }
-
-    if (targetFirstStep === -1) return;
-
-    // Reveal all steps before this point (instantly)
-    for (var j = 0; j <= targetFirstStep; j++) {
-      var el = allSteps[j];
-      var revealType = el.getAttribute('data-reveal');
-
-      if (revealType === 'typewriter') {
-        var text = typewriterTexts.get(el);
-        if (text) el.textContent = text;
-      }
-      el.classList.add('revealed');
-
-      var panel = el.closest('.panel');
-      if (panel) panel.classList.add('panel--active');
-    }
-
-    currentStep = targetFirstStep;
 
     // Scroll to the section
     targetSection.scrollIntoView({ behavior: 'smooth' });
@@ -353,8 +314,6 @@
   }
 
   function updateChapterNav() {
-    if (currentStep < 0) return;
-    var currentEl = allSteps[Math.min(currentStep, allSteps.length - 1)];
     var activeIndex = 0;
 
     navSections.forEach(function (item, index) {
@@ -378,7 +337,7 @@
   // ═══════════════════════════════════════════
   function updateProgress() {
     var percent = allSteps.length > 0
-      ? ((currentStep + 1) / allSteps.length) * 100
+      ? (revealedCount / allSteps.length) * 100
       : 0;
     if (progressBar) {
       progressBar.style.width = percent + '%';
@@ -389,6 +348,11 @@
   // 11. INITIAL STATE
   // ═══════════════════════════════════════════
   updateProgress();
+
+  // Update chapter nav on scroll
+  window.addEventListener('scroll', function () {
+    if (started) updateChapterNav();
+  }, { passive: true });
 
   // Reduced motion — reveal everything, skip intro
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -406,8 +370,7 @@
     document.querySelectorAll('.panel').forEach(function (p) {
       p.classList.add('panel--active');
     });
-    currentStep = allSteps.length - 1;
-    // Re-enable scroll for reduced motion users
-    window.addEventListener('wheel', function () {}, { passive: true });
+    revealedCount = allSteps.length;
+    updateProgress();
   }
 })();
