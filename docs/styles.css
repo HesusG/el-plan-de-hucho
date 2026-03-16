@@ -59,7 +59,6 @@
 html {
   -webkit-text-size-adjust: 100%;
   scrollbar-width: none;
-  overflow-x: hidden;
 }
 
 html::-webkit-scrollbar {
@@ -70,10 +69,8 @@ body {
   font-family: 'Courier Prime', 'Courier New', monospace;
   background-color: var(--black);
   color: var(--white);
-  overflow-x: hidden;
+  overflow-x: clip;
   line-height: 1.5;
-  touch-action: pan-y;
-  overscroll-behavior: none;
   -webkit-font-smoothing: antialiased;
 }
 
