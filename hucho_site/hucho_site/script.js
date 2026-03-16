@@ -92,6 +92,9 @@
     introOverlay.addEventListener('touchstart', function () {
       startStory();
     }, { passive: true });
+    introOverlay.addEventListener('wheel', function () {
+      startStory();
+    }, { passive: true });
   }
 
   // ═══════════════════════════════════════════
