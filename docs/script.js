@@ -137,22 +137,33 @@
     if (started) return;
     started = true;
 
-    // Hide intro overlay
-    if (introOverlay) {
-      introOverlay.classList.add('hidden');
-      setTimeout(function () {
-        introOverlay.style.display = 'none';
-      }, 1000);
-    }
-
-    // Scroll to top
+    // 1. Scroll to top BEFORE touching overlay (while opaque, jump is invisible)
     window.scrollTo(0, 0);
 
-    // Start observing all steps
-    allSteps.forEach(function (el) {
-      if (!el.classList.contains('revealed')) {
-        revealObserver.observe(el);
+    // 2. Hide intro overlay with transitionend
+    if (introOverlay) {
+      function onFaded() {
+        introOverlay.style.display = 'none';
+        introOverlay.removeEventListener('transitionend', onFaded);
       }
+      introOverlay.addEventListener('transitionend', onFaded);
+      // Force reflow so browser registers initial state before transition
+      introOverlay.offsetHeight;
+      introOverlay.classList.add('hidden');
+
+      // Safety net: if transitionend never fires (iOS edge case)
+      setTimeout(function () {
+        introOverlay.style.display = 'none';
+      }, 1500);
+    }
+
+    // 3. Start observing after a frame (let scroll reset settle)
+    requestAnimationFrame(function () {
+      allSteps.forEach(function (el) {
+        if (!el.classList.contains('revealed')) {
+          revealObserver.observe(el);
+        }
+      });
     });
   }
 
@@ -168,12 +179,12 @@
     // Find first unrevealed step
     for (var i = 0; i < allSteps.length; i++) {
       var el = allSteps[i];
-      if (!el.classList.contains('revealed') && el.getAttribute('data-reveal') !== 'typewriter') {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        return;
-      }
-      // For typewriter, check if it has text (already revealed)
-      if (el.getAttribute('data-reveal') === 'typewriter' && el.textContent.trim() === '') {
+      var isTypewriter = el.getAttribute('data-reveal') === 'typewriter';
+      var isRevealed = isTypewriter
+        ? el.textContent.trim() !== ''
+        : el.classList.contains('revealed');
+
+      if (!isRevealed) {
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         return;
       }

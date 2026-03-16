@@ -60,6 +60,7 @@ html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   scrollbar-width: none;
+  overflow-x: hidden;
 }
 
 html::-webkit-scrollbar {
@@ -72,6 +73,7 @@ body {
   color: var(--white);
   overflow-x: hidden;
   line-height: 1.5;
+  touch-action: pan-y;
   overscroll-behavior: none;
   -webkit-font-smoothing: antialiased;
 }
@@ -1453,12 +1455,14 @@ body.shaking {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 1s ease-out;
+  transition: opacity 1s ease-out, visibility 1s ease-out;
+  will-change: opacity;
 }
 
 .intro-overlay.hidden {
   opacity: 0;
   pointer-events: none;
+  visibility: hidden;
 }
 
 .intro-overlay__content {
