@@ -510,81 +510,7 @@ img {
   background: var(--red);
 }
 
-/* ═══════════════════════════════════════════
-   9. DALÍ ELEMENTS
-   ═══════════════════════════════════════════ */
-.dali-clock {
-  width: 60px;
-  height: 60px;
-  border: 3px solid var(--yellow);
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  background: rgba(241, 196, 15, 0.15);
-  position: absolute;
-  animation: melt 6s ease-in-out infinite;
-}
-
-.dali-clock::after {
-  content: "";
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  width: 2px;
-  height: 35%;
-  background: var(--yellow);
-  transform-origin: top center;
-  animation: clock-hand 3s linear infinite;
-}
-
-.dali-eye {
-  width: 50px;
-  height: 30px;
-  border: 3px solid var(--white);
-  border-radius: 50%;
-  position: absolute;
-  background: rgba(255, 255, 255, 0.1);
-  animation: float 5s ease-in-out infinite;
-  overflow: hidden;
-}
-
-.dali-eye::after {
-  content: "";
-  width: 14px;
-  height: 14px;
-  background: var(--red);
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: look-around 4s ease-in-out infinite;
-}
-
-@keyframes melt {
-  0%, 100% {
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    transform: skewY(0deg) rotate(0deg);
-  }
-  50% {
-    border-radius: 40% 60% 60% 40% / 70% 30% 70% 30%;
-    transform: skewY(10deg) rotate(-5deg);
-  }
-}
-
-@keyframes clock-hand {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-15px) rotate(3deg); }
-}
-
-@keyframes look-around {
-  0%, 100% { transform: translate(-50%, -50%); }
-  25% { transform: translate(-20%, -50%); }
-  75% { transform: translate(-80%, -50%); }
-}
+/* (Dalí elements removed — not used in current design) */
 
 /* ═══════════════════════════════════════════
    10. COVER PANELS (3-page intro)
@@ -667,9 +593,11 @@ img {
 
 .cover-subtitle {
   font-family: 'Courier Prime', monospace;
-  font-size: var(--fs-small);
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
   color: rgba(255, 255, 255, 0.8);
   font-style: italic;
+  max-width: 550px;
+  line-height: 1.9;
 }
 
 .scroll-indicator {
@@ -698,34 +626,6 @@ img {
     #2d1b4e 60%,
     var(--black) 100%
   );
-}
-
-.panel--huida .dali-clock:nth-child(1) {
-  top: 10%;
-  right: 8%;
-  animation-delay: 0s;
-}
-
-.panel--huida .dali-clock:nth-child(2) {
-  bottom: 20%;
-  left: 5%;
-  width: 45px;
-  height: 45px;
-  animation-delay: 2s;
-}
-
-.panel--huida .dali-eye:nth-child(3) {
-  top: 30%;
-  left: 12%;
-  animation-delay: 1s;
-}
-
-.panel--huida .dali-eye:nth-child(4) {
-  bottom: 35%;
-  right: 10%;
-  width: 40px;
-  height: 24px;
-  animation-delay: 3s;
 }
 
 /* Panel 5 — Misil */
@@ -1802,8 +1702,11 @@ body.shaking {
   opacity: 1;
 }
 
-/* Hide nav on small screens */
+/* ═══════════════════════════════════════════
+   MOBILE OVERRIDES (< 600px)
+   ═══════════════════════════════════════════ */
 @media (max-width: 599px) {
+  /* Nav dots — smaller, no labels */
   .chapter-nav {
     right: 0.4rem;
     gap: 0.7rem;
@@ -1816,6 +1719,208 @@ body.shaking {
 
   .chapter-nav__dot::before {
     display: none;
+  }
+
+  /* Avatars — smaller in bubble footers */
+  .avatar {
+    width: 48px;
+    height: 48px;
+  }
+
+  .bubble-footer {
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+    padding-top: 0.4rem;
+  }
+
+  .bubble-footer .avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .bubble-footer strong {
+    font-size: 0.95em;
+  }
+
+  /* Speech bubbles — full width, tighter padding */
+  .speech-bubble {
+    max-width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: 14px;
+    box-shadow: 3px 3px 0 var(--black);
+  }
+
+  .speech-bubble--paco::after {
+    bottom: -14px;
+    left: 20px;
+    border-width: 14px;
+  }
+
+  .speech-bubble--paco::before {
+    bottom: -11px;
+    left: 22px;
+    border-width: 12px;
+  }
+
+  .speech-bubble--hucho::after {
+    bottom: -14px;
+    right: 20px;
+    border-width: 14px;
+  }
+
+  .speech-bubble--hucho::before {
+    bottom: -11px;
+    right: 22px;
+    border-width: 12px;
+  }
+
+  .speech-bubble--refugio::after {
+    bottom: -14px;
+    right: 20px;
+    border-width: 14px;
+  }
+
+  .speech-bubble--refugio::before {
+    bottom: -11px;
+    right: 22px;
+    border-width: 12px;
+  }
+
+  /* Paco/Hucho narra — tighter padding */
+  .paco-narra,
+  .hucho-narra {
+    padding: 1rem 1.2rem;
+  }
+
+  .paco-narra__header .avatar,
+  .hucho-narra__header .avatar {
+    width: 28px;
+    height: 28px;
+  }
+
+  /* Manifesto, fragment, prose — tighter */
+  .manifesto {
+    padding: 1rem 1.2rem;
+  }
+
+  .fragment {
+    padding: 0.8rem 1rem;
+    gap: 0.8rem;
+  }
+
+  .fragment span:nth-child(even) {
+    padding-left: 0.8rem;
+  }
+
+  .prose {
+    padding: 0.8rem 1rem;
+  }
+
+  /* Scrawl — wider on mobile */
+  .scrawl {
+    max-width: 95%;
+    padding: 1rem 1.2rem;
+  }
+
+  /* Collage cutouts — scale down */
+  .collage-cutout {
+    max-width: 180px;
+  }
+
+  .collage-cutout--sm {
+    max-width: 130px;
+  }
+
+  .collage-cutout--lg {
+    max-width: 220px;
+  }
+
+  .collage-cutout--left {
+    margin-left: 0.5rem;
+  }
+
+  .collage-cutout--right {
+    margin-right: 0.5rem;
+  }
+
+  .collage-cutout--taped::before,
+  .collage-cutout--taped::after {
+    width: 40px;
+    height: 14px;
+  }
+
+  /* Inner voice — padding tighter when stacked */
+  .inner-voice__a,
+  .inner-voice__b {
+    padding: 0.8rem 1rem;
+  }
+
+  /* SFX — prevent overflow */
+  .sfx {
+    letter-spacing: 2px;
+    -webkit-text-stroke: 2px var(--black);
+  }
+
+  .sfx-wrap::before {
+    width: clamp(80px, 25vw, 150px);
+    height: clamp(80px, 25vw, 150px);
+  }
+
+  /* Scream — prevent overflow */
+  .scream {
+    font-size: clamp(2rem, 10vw, 4rem);
+    letter-spacing: 2px;
+  }
+
+  /* Cover — tighter */
+  .cover-epigraph {
+    max-width: 90%;
+    line-height: 1.8;
+    font-size: clamp(0.95rem, 3vw, 1.3rem);
+  }
+
+  .cover-tagline {
+    max-width: 90%;
+    font-size: clamp(0.9rem, 2.8vw, 1.2rem);
+  }
+
+  .cover-subtitle {
+    font-size: clamp(0.8rem, 2.5vw, 1rem);
+  }
+
+  /* Mini cita — full width */
+  .mini-cita {
+    max-width: 100%;
+  }
+
+  /* Epilogo text — full width */
+  .epilogo-text {
+    max-width: 100%;
+  }
+
+  /* Stack gap tighter on mobile */
+  .stack {
+    gap: 1rem;
+  }
+
+  .stack--loose {
+    gap: 1.5rem;
+  }
+
+  /* Scroll lock overlay — more visible on mobile */
+  .scroll-lock-overlay {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%) translateY(20px);
+  }
+
+  .scroll-lock-overlay.active {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* Panel transition for collage — less padding */
+  .panel--transition {
+    padding: 2rem 0;
   }
 }
 
@@ -1862,16 +1967,6 @@ footer {
 
   .cover-title {
     letter-spacing: 8px;
-  }
-
-  .dali-clock {
-    width: 80px;
-    height: 80px;
-  }
-
-  .dali-eye {
-    width: 70px;
-    height: 42px;
   }
 
   .manifesto {
@@ -1994,8 +2089,14 @@ footer {
 @media (max-width: 599px) {
   .scroll-lock-overlay {
     bottom: 1rem;
-    right: 1rem;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%) translateY(20px);
     padding: 0.4rem 0.8rem 0.4rem 0.4rem;
+  }
+
+  .scroll-lock-overlay.active {
+    transform: translateX(-50%) translateY(0);
   }
 
   .scroll-lock-ring {
