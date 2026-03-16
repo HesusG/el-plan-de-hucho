@@ -146,14 +146,32 @@
   var wakeTriggered = false;
 
   function checkSpecialEffects(el) {
-    // Epilogo wake — scroll lock 5s + blur→focus
+    // Epilogo wake — visual indicator + blur→focus
     if (!wakeTriggered && el.classList.contains('epilogo-wake')) {
       wakeTriggered = true;
-      document.body.style.overflow = 'hidden';
       el.classList.add('waking');
+
+      // Crear indicador visual
+      var wakeIndicator = document.createElement('div');
+      wakeIndicator.className = 'wake-indicator';
+      wakeIndicator.textContent = 'DESPERTANDO...';
+      document.body.appendChild(wakeIndicator);
+
+      // Forzar reflow y activar
+      wakeIndicator.offsetHeight;
+      wakeIndicator.classList.add('visible');
+
+      // Desvanecer después de 4s (1s antes de que termine la transición blur)
       setTimeout(function () {
-        document.body.style.overflow = '';
-      }, 5000);
+        wakeIndicator.classList.remove('visible');
+      }, 4000);
+
+      // Eliminar del DOM después de la transición
+      setTimeout(function () {
+        if (wakeIndicator.parentNode) {
+          wakeIndicator.parentNode.removeChild(wakeIndicator);
+        }
+      }, 5500);
     }
 
     // BOOM SFX → shake + flash
