@@ -1,6 +1,7 @@
 /*
  * El Plan de Hucho — Novela Gráfica
- * Scroll-driven animations, typewriter, parallax, shake, water rise, chapter nav
+ * Step-based navigation: click/tap/keyboard to advance
+ * No free scroll — the story controls the pace
  * Vanilla JS, no dependencies
  */
 
@@ -8,63 +9,235 @@
   'use strict';
 
   // ═══════════════════════════════════════════
-  // 1. PROGRESS BAR
+  // 1. ELEMENTS
   // ═══════════════════════════════════════════
   var progressBar = document.querySelector('.progress-bar');
-
-  function updateProgress() {
-    var scrollTop = window.scrollY;
-    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    progressBar.style.width = percent + '%';
-  }
+  var advanceBtn = document.getElementById('advance-arrow');
+  var backBtn = document.getElementById('back-arrow');
+  var introOverlay = document.getElementById('intro-overlay');
+  var startBtn = document.getElementById('start-btn');
+  var flashOverlay = document.querySelector('.flash-overlay');
 
   // ═══════════════════════════════════════════
-  // 2. REVEAL SYSTEM (IntersectionObserver)
+  // 2. BUILD STEP SEQUENCE
   // ═══════════════════════════════════════════
-  var revealElements = document.querySelectorAll('[data-reveal]');
-
-  var revealObserver = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-
-        var el = entry.target;
-        var delay = parseInt(el.getAttribute('data-delay') || '0', 10);
-        var revealType = el.getAttribute('data-reveal');
-
-        // Typewriter is handled separately
-        if (revealType === 'typewriter') return;
-
-        setTimeout(function () {
-          el.classList.add('revealed');
-        }, delay);
-
-        revealObserver.unobserve(el);
-      });
-    },
-    { threshold: 0.25 }
+  // Every [data-reveal] element is a step, except scroll indicators
+  var allSteps = Array.from(
+    document.querySelectorAll('[data-reveal]:not(.scroll-indicator)')
   );
 
-  revealElements.forEach(function (el) {
-    if (el.getAttribute('data-reveal') !== 'typewriter') {
-      revealObserver.observe(el);
+  var currentStep = -1;
+  var isAnimating = false;
+  var started = false;
+
+  // Store typewriter original texts and clear them
+  var typewriterTexts = new Map();
+  allSteps.forEach(function (el) {
+    if (el.getAttribute('data-reveal') === 'typewriter') {
+      typewriterTexts.set(el, el.textContent.trim());
+      el.textContent = '';
+      el.style.opacity = '1';
     }
   });
 
   // ═══════════════════════════════════════════
-  // 3. TYPEWRITER EFFECT
+  // 3. BLOCK MANUAL SCROLL
   // ═══════════════════════════════════════════
-  var typewriterElements = document.querySelectorAll('[data-reveal="typewriter"]');
-  var typewriterTexts = new Map();
+  window.addEventListener('wheel', function (e) {
+    e.preventDefault();
+  }, { passive: false });
 
-  // Store original text and clear it
-  typewriterElements.forEach(function (el) {
-    typewriterTexts.set(el, el.textContent.trim());
-    el.textContent = '';
-    el.style.opacity = '1';
+  window.addEventListener('touchmove', function (e) {
+    e.preventDefault();
+  }, { passive: false });
+
+  // ═══════════════════════════════════════════
+  // 4. INPUT HANDLERS
+  // ═══════════════════════════════════════════
+
+  // Touch swipe detection
+  var touchStartY = 0;
+
+  window.addEventListener('touchstart', function (e) {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  window.addEventListener('touchend', function (e) {
+    var delta = touchStartY - e.changedTouches[0].clientY;
+    if (delta > 30) advance();   // swipe up → advance
+    if (delta < -30) goBack();   // swipe down → go back
   });
 
+  // Keyboard
+  window.addEventListener('keydown', function (e) {
+    var forwardKeys = ['Space', 'ArrowDown', 'ArrowRight', 'PageDown', 'Enter'];
+    var backKeys = ['ArrowUp', 'ArrowLeft', 'PageUp', 'Backspace'];
+    if (forwardKeys.indexOf(e.code) !== -1) {
+      e.preventDefault();
+      advance();
+    }
+    if (backKeys.indexOf(e.code) !== -1) {
+      e.preventDefault();
+      goBack();
+    }
+    if (['Home', 'End'].indexOf(e.code) !== -1) {
+      e.preventDefault();
+    }
+  });
+
+  // Advance button
+  if (advanceBtn) {
+    advanceBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      advance();
+    });
+  }
+
+  // Back button
+  if (backBtn) {
+    backBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      goBack();
+    });
+  }
+
+  // Start button
+  if (startBtn) {
+    startBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      startStory();
+    });
+  }
+
+  // ═══════════════════════════════════════════
+  // 5. START STORY
+  // ═══════════════════════════════════════════
+  function startStory() {
+    if (started) return;
+    started = true;
+
+    // Hide intro overlay
+    if (introOverlay) {
+      introOverlay.classList.add('hidden');
+      setTimeout(function () {
+        introOverlay.style.display = 'none';
+      }, 1000);
+    }
+
+    // Scroll to top
+    window.scrollTo(0, 0);
+
+    // Mark first panel as active
+    var firstPanel = document.querySelector('.panel');
+    if (firstPanel) firstPanel.classList.add('panel--active');
+
+    // Reveal first step after a beat
+    setTimeout(function () {
+      advance();
+    }, 300);
+  }
+
+  // ═══════════════════════════════════════════
+  // 6. ADVANCE — Core navigation
+  // ═══════════════════════════════════════════
+  function advance() {
+    if (!started) {
+      startStory();
+      return;
+    }
+
+    if (isAnimating) return;
+
+    currentStep++;
+    if (currentStep >= allSteps.length) {
+      currentStep = allSteps.length - 1;
+      // Hide arrow at end
+      if (advanceBtn) advanceBtn.classList.add('hidden');
+      return;
+    }
+
+    isAnimating = true;
+
+    var el = allSteps[currentStep];
+    var revealType = el.getAttribute('data-reveal');
+
+    // Mark parent panel as active
+    var panel = el.closest('.panel');
+    if (panel) {
+      panel.classList.add('panel--active');
+    }
+
+    // Scroll element into view
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Reveal after scroll settles
+    setTimeout(function () {
+      if (revealType === 'typewriter') {
+        var text = typewriterTexts.get(el);
+        if (text) {
+          typewrite(el, text, 35);
+        }
+      } else {
+        el.classList.add('revealed');
+      }
+
+      // Check for special effects
+      checkSpecialEffects(el);
+
+      // Update UI
+      updateProgress();
+      updateChapterNav();
+      updateBackButton();
+
+      // Allow next advance
+      setTimeout(function () {
+        isAnimating = false;
+      }, 350);
+    }, 400);
+  }
+
+  // ═══════════════════════════════════════════
+  // 6b. GO BACK — Reverse navigation
+  // ═══════════════════════════════════════════
+  function goBack() {
+    if (!started || isAnimating) return;
+    if (currentStep <= 0) return;
+
+    // Un-reveal current step
+    var el = allSteps[currentStep];
+    el.classList.remove('revealed');
+
+    // If typewriter, clear text
+    if (el.getAttribute('data-reveal') === 'typewriter') {
+      el.textContent = '';
+    }
+
+    currentStep--;
+
+    // Scroll to the now-current step
+    var prevEl = allSteps[currentStep];
+    prevEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Show advance arrow again if it was hidden
+    if (advanceBtn) advanceBtn.classList.remove('hidden');
+
+    updateProgress();
+    updateChapterNav();
+    updateBackButton();
+  }
+
+  function updateBackButton() {
+    if (!backBtn) return;
+    if (currentStep > 0) {
+      backBtn.classList.add('active');
+    } else {
+      backBtn.classList.remove('active');
+    }
+  }
+
+  // ═══════════════════════════════════════════
+  // 7. TYPEWRITER
+  // ═══════════════════════════════════════════
   function typewrite(el, text, speed) {
     speed = speed || 40;
     var i = 0;
@@ -83,158 +256,45 @@
     tick();
   }
 
-  // Observer for typewriter — needs higher threshold
-  var typewriterObserver = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-
-        var el = entry.target;
-        var delay = parseInt(el.getAttribute('data-delay') || '0', 10);
-        var text = typewriterTexts.get(el);
-
-        if (text) {
-          setTimeout(function () {
-            typewrite(el, text, 40);
-          }, delay);
-        }
-
-        typewriterObserver.unobserve(el);
-      });
-    },
-    { threshold: 0.5 }
-  );
-
-  typewriterElements.forEach(function (el) {
-    typewriterObserver.observe(el);
-  });
-
   // ═══════════════════════════════════════════
-  // 4. PARALLAX (transform-based, mobile-safe)
-  // ═══════════════════════════════════════════
-  var panelBgs = document.querySelectorAll('.panel__bg');
-  var ticking = false;
-
-  function updateParallax() {
-    var windowHeight = window.innerHeight;
-
-    panelBgs.forEach(function (bg) {
-      var panel = bg.parentElement;
-      var rect = panel.getBoundingClientRect();
-
-      // Only update if panel is in or near viewport
-      if (rect.bottom < -windowHeight || rect.top > windowHeight * 2) return;
-
-      var panelCenter = rect.top + rect.height / 2;
-      var viewportCenter = windowHeight / 2;
-      var offset = (panelCenter - viewportCenter) * 0.15;
-
-      bg.style.transform = 'scale(1.15) translateY(' + offset + 'px)';
-    });
-
-    ticking = false;
-  }
-
-  function onScroll() {
-    updateProgress();
-    updateChapterNav();
-
-    if (!ticking) {
-      requestAnimationFrame(updateParallax);
-      ticking = true;
-    }
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-
-  // ═══════════════════════════════════════════
-  // 5. SCREEN SHAKE + FLASH (Panel Misil)
+  // 8. SPECIAL EFFECTS
   // ═══════════════════════════════════════════
   var shakeTriggered = false;
-  var shakePanel = document.querySelector('[data-shake]');
-  var flashOverlay = document.querySelector('.flash-overlay');
-
-  if (shakePanel) {
-    var shakeObserver = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting || shakeTriggered) return;
-          shakeTriggered = true;
-
-          // Delay for dramatic buildup (synced with BOOM SFX delay)
-          setTimeout(function () {
-            // Flash
-            flashOverlay.classList.add('active');
-            setTimeout(function () {
-              flashOverlay.classList.remove('active');
-            }, 150);
-
-            // Shake
-            document.body.classList.add('shaking');
-            setTimeout(function () {
-              document.body.classList.remove('shaking');
-            }, 500);
-          }, 8200); // Synced with BOOM SFX delay (8500) - small lead
-
-          shakeObserver.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    shakeObserver.observe(shakePanel);
-  }
-
-  // ═══════════════════════════════════════════
-  // 6. WATER RISE (Panel Caída)
-  // ═══════════════════════════════════════════
-  var waterPanel = document.querySelector('[data-water-rise]');
-  var waterOverlay = waterPanel ? waterPanel.querySelector('.water-overlay') : null;
   var waterTriggered = false;
 
-  if (waterPanel && waterOverlay) {
-    var waterObserver = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting || waterTriggered) return;
-          waterTriggered = true;
+  function checkSpecialEffects(el) {
+    // BOOM SFX → shake + flash
+    if (!shakeTriggered && el.classList.contains('sfx--boom')) {
+      shakeTriggered = true;
+      if (flashOverlay) {
+        flashOverlay.classList.add('active');
+        setTimeout(function () {
+          flashOverlay.classList.remove('active');
+        }, 150);
+      }
+      document.body.classList.add('shaking');
+      setTimeout(function () {
+        document.body.classList.remove('shaking');
+      }, 500);
+    }
 
-          // Delay to let content appear first
+    // Water rise — trigger when entering the water panel
+    if (!waterTriggered) {
+      var waterPanel = el.closest('[data-water-rise]');
+      if (waterPanel) {
+        var waterOverlay = waterPanel.querySelector('.water-overlay');
+        if (waterOverlay) {
+          waterTriggered = true;
           setTimeout(function () {
             waterOverlay.classList.add('risen');
           }, 2000);
-
-          waterObserver.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    waterObserver.observe(waterPanel);
+        }
+      }
+    }
   }
 
   // ═══════════════════════════════════════════
-  // 7. PANEL BUILD SEQUENCE
-  // ═══════════════════════════════════════════
-  var panels = document.querySelectorAll('.panel');
-
-  var panelObserver = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('panel--active');
-        }
-      });
-    },
-    { threshold: 0.25 }
-  );
-
-  panels.forEach(function (panel) {
-    panelObserver.observe(panel);
-  });
-
-  // ═══════════════════════════════════════════
-  // 8. CHAPTER NAVIGATION DOTS
+  // 9. CHAPTER NAV DOTS
   // ═══════════════════════════════════════════
   var navDots = document.querySelectorAll('.chapter-nav__dot');
   var navSections = [];
@@ -246,29 +306,66 @@
       navSections.push({ dot: dot, section: section });
     }
 
-    // Click to scroll
     dot.addEventListener('click', function () {
       if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
+        jumpToPanel(section);
       }
     });
   });
 
+  function jumpToPanel(targetSection) {
+    if (!started) startStory();
+
+    // Find the first step inside or after this section
+    var targetFirstStep = -1;
+    for (var i = 0; i < allSteps.length; i++) {
+      if (targetSection.contains(allSteps[i])) {
+        targetFirstStep = i;
+        break;
+      }
+    }
+
+    if (targetFirstStep === -1) return;
+
+    // Reveal all steps before this point (instantly)
+    for (var j = 0; j <= targetFirstStep; j++) {
+      var el = allSteps[j];
+      var revealType = el.getAttribute('data-reveal');
+
+      if (revealType === 'typewriter') {
+        var text = typewriterTexts.get(el);
+        if (text) el.textContent = text;
+      }
+      el.classList.add('revealed');
+
+      var panel = el.closest('.panel');
+      if (panel) panel.classList.add('panel--active');
+    }
+
+    currentStep = targetFirstStep;
+
+    // Scroll to the section
+    targetSection.scrollIntoView({ behavior: 'smooth' });
+
+    // Update UI
+    updateProgress();
+    updateChapterNav();
+  }
+
   function updateChapterNav() {
-    var scrollTop = window.scrollY;
-    var windowHeight = window.innerHeight;
-    var currentIndex = 0;
+    if (currentStep < 0) return;
+    var currentEl = allSteps[Math.min(currentStep, allSteps.length - 1)];
+    var activeIndex = 0;
 
     navSections.forEach(function (item, index) {
       var rect = item.section.getBoundingClientRect();
-      // Section is considered active when its top half is in the viewport
-      if (rect.top < windowHeight * 0.5) {
-        currentIndex = index;
+      if (rect.top <= window.innerHeight * 0.5) {
+        activeIndex = index;
       }
     });
 
     navDots.forEach(function (dot, index) {
-      if (index === currentIndex) {
+      if (index === activeIndex) {
         dot.classList.add('active');
       } else {
         dot.classList.remove('active');
@@ -277,26 +374,40 @@
   }
 
   // ═══════════════════════════════════════════
-  // 9. INITIAL STATE
+  // 10. PROGRESS BAR
+  // ═══════════════════════════════════════════
+  function updateProgress() {
+    var percent = allSteps.length > 0
+      ? ((currentStep + 1) / allSteps.length) * 100
+      : 0;
+    if (progressBar) {
+      progressBar.style.width = percent + '%';
+    }
+  }
+
+  // ═══════════════════════════════════════════
+  // 11. INITIAL STATE
   // ═══════════════════════════════════════════
   updateProgress();
-  updateParallax();
-  updateChapterNav();
 
-  // Check for reduced motion preference
+  // Reduced motion — reveal everything, skip intro
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   if (prefersReducedMotion.matches) {
-    // Reveal everything immediately
-    revealElements.forEach(function (el) {
+    started = true;
+    if (introOverlay) {
+      introOverlay.style.display = 'none';
+    }
+    allSteps.forEach(function (el) {
       el.classList.add('revealed');
-    });
-    typewriterElements.forEach(function (el) {
       var text = typewriterTexts.get(el);
       if (text) el.textContent = text;
     });
-    panels.forEach(function (panel) {
-      panel.classList.add('panel--active');
+    document.querySelectorAll('.panel').forEach(function (p) {
+      p.classList.add('panel--active');
     });
+    currentStep = allSteps.length - 1;
+    // Re-enable scroll for reduced motion users
+    window.addEventListener('wheel', function () {}, { passive: true });
   }
 })();

@@ -15,6 +15,16 @@
 </head>
 <body>
 
+  <!-- Instruction overlay -->
+  <div class="intro-overlay" id="intro-overlay">
+    <div class="intro-overlay__content">
+      <p class="intro-overlay__icon">▼</p>
+      <p class="intro-overlay__text">Toca la flecha para avanzar</p>
+      <p class="intro-overlay__hint">En computadora: Espacio, Enter, o ↓</p>
+      <button class="intro-overlay__start" id="start-btn">COMENZAR</button>
+    </div>
+  </div>
+
   <!-- Progress Bar -->
   <div class="progress-bar" aria-hidden="true"></div>
 
@@ -60,11 +70,13 @@
 
       <div class="panel__content text-center">
         <h1 class="cover-title" data-reveal="scale-in" data-delay="200">El Plan<br>de Hucho</h1>
-        <p class="cover-tagline" data-reveal="fade-up" data-delay="800">
-          La guerra no se declara. Se sueña.<br>
-          Y no hay nada más peligroso que un pendejo con un plan.
-        </p>
-        <div class="scroll-indicator" data-reveal="fade-up" data-delay="1400" aria-hidden="true">▼</div>
+        <div class="narrator" data-reveal="fade-up" data-delay="800" style="max-width: 600px; margin: 0 auto; color: rgba(255,255,255,0.7);">
+          Tres días antes de que Paco empezara a tener el mismo sueño recurrente, Hucho lo arrastró a ver <em>La Battaglia di Algeri</em> en un cineclub de la Condesa que olía a incienso y pretensión. Pontecorvo, 1966 — neorrealismo italiano aplicado a la guerrilla urbana argelina. Blanco y negro granulado, cámara en mano, sin actores profesionales. Una película que no te cuenta la revolución: te la mete en el cuerpo como fiebre. Hucho la había visto seis veces.
+        </div>
+        <div class="narrator" data-reveal="fade-up" data-delay="1100" style="max-width: 600px; margin: 0 auto; color: rgba(255,255,255,0.7);">
+          Después fueron a su departamento. Pidieron unas hamburguesas que llegaron frías y con la carne gris. Paco se arrepintió de haber gastado su dinero en esa porquería. Hucho sonrió, se limpió las manos con una servilleta, dijo «nos vemos» y se fue. Al recoger los platos, Paco encontró una nota doblada en cuatro debajo del vaso de Hucho. Reconoció la letra. Este cabrón. Nunca hace nada al azar.
+        </div>
+        <div class="scroll-indicator" data-reveal="fade-up" data-delay="1600" aria-hidden="true">▼</div>
       </div>
     </section>
 
@@ -92,6 +104,17 @@
         <img class="collage-cutout collage-cutout--taped"
              src="images/collages/collage_mask_closeup.png"
              alt="" data-reveal="fade-up">
+      </div>
+    </section>
+
+    <!-- LA NOTA — apertura circular -->
+    <section class="panel panel--transition panel--nota-inicio" aria-label="La nota">
+      <div class="panel__content text-center">
+        <div class="scrawl" data-reveal="fade-up" style="text-align: center;">
+          <p>Kilómetro 40. Dentro de 3 noches.</p>
+          <p>No llegues tarde esta vez, cabrón.</p>
+          <p>— H.</p>
+        </div>
       </div>
     </section>
 
@@ -146,31 +169,33 @@
             <span class="hucho-narra__label">HUCHO NARRA</span>
           </div>
           <p>Le mandé la máscara sin nota porque las notas se pueden rastrear. Sin remitente porque los remitentes se pueden interrogar. Si Paco necesitaba una explicación para ponérsela, entonces no era el indicado. Pero yo sabía que se la iba a poner. Los cobardes siempre se ponen la máscara — es a lo único que no le tienen miedo, a dejar de ser ellos mismos.</p>
-          <p>Me temblaban las manos cuando cerré la caja. Pero las manos que tiemblan son las que aprietan más fuerte el gatillo.</p>
+          <p>Me temblaban las manos cuando cerré la caja. Le puse la cinta adhesiva y no podía cortar derecho — las tijeras me resbalaban de los dedos. Tenía la camisa empapada de sudor y la boca seca. Mi voz, si alguien me hubiera hablado en ese momento, habría salido como un hilo. Débil. Patética. Pero las manos que tiemblan son las que aprietan más fuerte el gatillo.</p>
         </div>
 
-        <div class="inner-voice" data-reveal="fade-up" data-delay="1200">
+        <div class="inner-voice" data-reveal="glitch" data-delay="1200">
           <div class="inner-voice__header">DENTRO DE LA MENTE DE HUCHO</div>
-          <div class="inner-voice__grid">
-            <div class="inner-voice__a">
-              <span class="inner-voice__label">⚡ EL VISIONARIO</span>
-              <p>«Tu nombre es una marca registrada que no te pertenece. Tu cara es un código de barras. La máscara no oculta — la máscara revela.»</p>
-              <p>«Esta máscara es un acto de guerra. Cada paso a partir de ahora es una declaración.»</p>
-            </div>
-            <div class="inner-voice__b">
-              <span class="inner-voice__label">💧 EL COBARDE</span>
-              <p>(¿Y si me reconocen? Mamá va a ver esto en las noticias. Dios. ¿Cerré la puerta del departamento? ¿Pagué el gas? El gas. A la verga. Si me meten al bote quién chingados va a pagar el gas.)</p>
-            </div>
+          <div class="inner-voice__body">
+            <span class="voice-fear">(No puedo creer que mandé esa caja. Las manos no me dejan de temblar. La mandé por correo. El correo tiene cámaras. Las cámaras tienen grabaciones. Las grabaciones tienen mi cara. Estoy jodido.)</span>
+            <span class="voice-fear">(¿Y si Paco no se la pone? ¿Y si se la pone y lo atrapan? ¿Y si me rastrean? Mamá va a ver esto en las noticias. Dios. ¿Cerré la puerta? ¿Pagué el gas? Si me meten al bote quién chingados va a pagar el gas.)</span>
+            <span class="voice-vision">«La máscara no oculta — la máscara revela.»</span>
+            <span class="voice-fear voice-fear--tape">(A la verga con la máscara. A la verga con todo. Ya no puedo retractarme. Ya se envió. Ya está en camino. Ya no hay vuelta atrás y tengo ganas de vomitar.)</span>
           </div>
         </div>
 
-        <div class="manifesto" data-reveal="fade-up" data-delay="1500">
-          <p>El sistema no se reforma. Se interrumpe. Y toda interrupción empieza con alguien lo suficientemente pendejo como para creer que un chimpancé de plástico puede cambiar el mundo.</p>
+        <div class="panic-text" data-reveal="fade-up" data-delay="1500" aria-label="Pánico">
+          <span style="--i:0">tengo miedo</span>
+          <span style="--i:1">tengo miedo</span>
+          <span style="--i:2">TENGO MIEDO</span>
+          <span style="--i:3">tengo miedo</span>
+          <span style="--i:4">tengo miedo</span>
+          <span style="--i:5">TENGO MIEDO</span>
+          <span style="--i:6">tengo miedo</span>
+          <span style="--i:7">tengo</span>
+          <span style="--i:8">miedo</span>
+          <span style="--i:9">TENGO MIEDO</span>
+          <span style="--i:10">tengo miedo</span>
+          <span style="--i:11">miedo</span>
         </div>
-
-        <p class="whisper" data-reveal="fade-up" data-delay="1800">
-          (tengo miedo tengo miedo tengo miedo pero el miedo es solo el cuerpo pidiendo permiso para ser valiente)
-        </p>
 
         <div class="scroll-indicator" data-reveal="fade-up" data-delay="2000" aria-hidden="true">▼</div>
       </div>
@@ -224,8 +249,9 @@
             <img class="avatar" src="images/avatars/hucho.png" alt="Hucho" onerror="this.style.display='none'">
             <span class="hucho-narra__label">HUCHO NARRA</span>
           </div>
-          <p>Llevaba cuatro horas sentado en esa silla esperándolo. Cuatro horas con el estómago hecho nudo y las manos sudadas. Pero cuando llegó Paco, me vio calmado. Así funciona esto: el miedo se esconde en la autoridad. Si tú tiemblas, todos tiemblan. Si tú te sientas como si fueras dueño del edificio, el edificio te cree.</p>
-          <p>La verdad es que vomité dos veces antes de que llegara. Pero eso no lo necesita saber nadie.</p>
+          <p>Llevaba cuatro horas sentado en esa silla esperándolo. Cuatro horas con el estómago hecho nudo, las manos sudadas empapando los descansabrazos, y un tic en el párpado izquierdo que no me paraba. Cada ruido del edificio — el aire acondicionado, una puerta cerrándose tres pisos abajo — me hacía brincar como un gato.</p>
+          <p>Pero cuando llegó Paco, me vio calmado. Así funciona esto: el miedo se esconde en la autoridad. Si tú tiemblas, todos tiemblan. Si tú te sientas como si fueras dueño del edificio, el edificio te cree.</p>
+          <p>La verdad es que vomité dos veces antes de que llegara. Mi voz era débil — me la aclaré tres veces antes de decir «llegaste» para que sonara seco, firme, de jefe. Pero por dentro era gelatina. Pura pinche gelatina.</p>
         </div>
 
         <div class="paco-narra" data-reveal="fade-up" data-delay="1100">
@@ -250,10 +276,22 @@
             <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
             <span class="paco-narra__label">PACO NARRA</span>
           </div>
+          <p>Al forzar la caja se activó una alarma silenciosa — una lucecita roja que ninguno de los dos vio hasta que ya era tarde. Eso no estaba en el plan. O si estaba, Hucho se lo guardó.</p>
+        </div>
+
+        <div class="siren-effect" data-reveal="fade-up" data-delay="1900" aria-label="Sirenas">
+          <span class="siren-effect__text">WEE-OO WEE-OO WEE-OO</span>
+        </div>
+
+        <div class="paco-narra" data-reveal="fade-up" data-delay="2300">
+          <div class="paco-narra__header">
+            <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
+            <span class="paco-narra__label">PACO NARRA</span>
+          </div>
           <p>Entonces escuchamos las sirenas. A lo lejos, pero acercándose. Hucho ni se inmutó.</p>
         </div>
 
-        <div class="speech-bubble speech-bubble--hucho" data-reveal="fade-up" data-delay="1900">
+        <div class="speech-bubble speech-bubble--hucho" data-reveal="fade-up" data-delay="2500">
           <p><em>Las autoridades han sido alertadas. ¿Viste algo raro cuando entraste?</em></p>
           <div class="bubble-footer">
             <img class="avatar" src="images/avatars/hucho.png" alt="Hucho" onerror="this.style.display='none'">
@@ -261,7 +299,7 @@
           </div>
         </div>
 
-        <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="2400">
+        <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="3000">
           <p>No, nada raro.</p>
           <div class="bubble-footer">
             <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
@@ -269,7 +307,7 @@
           </div>
         </div>
 
-        <div class="speech-bubble speech-bubble--hucho" data-reveal="fade-up" data-delay="2900">
+        <div class="speech-bubble speech-bubble--hucho" data-reveal="fade-up" data-delay="3500">
           <p><em>¿Entraste con la máscara puesta?</em></p>
           <div class="bubble-footer">
             <img class="avatar" src="images/avatars/hucho.png" alt="Hucho" onerror="this.style.display='none'">
@@ -277,7 +315,7 @@
           </div>
         </div>
 
-        <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="3400">
+        <div class="speech-bubble speech-bubble--paco" data-reveal="fade-up" data-delay="4000">
           <p>...Sí.</p>
           <div class="bubble-footer">
             <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
@@ -285,7 +323,7 @@
           </div>
         </div>
 
-        <div class="speech-bubble speech-bubble--hucho" data-reveal="fade-up" data-delay="3900">
+        <div class="speech-bubble speech-bubble--hucho" data-reveal="fade-up" data-delay="4500">
           <p><em>Eso fue un error, Paco. Alguien entrando a un banco con una máscara de chimpancé un sábado levanta sospechas hasta en este país. La máscara era para adentro. Para las cámaras. No para pasearte en la calle como si fuera pinche Halloween.</em></p>
           <div class="bubble-footer">
             <img class="avatar" src="images/avatars/hucho.png" alt="Hucho" onerror="this.style.display='none'">
@@ -293,30 +331,28 @@
           </div>
         </div>
 
-        <div class="hucho-narra" data-reveal="fade-up" data-delay="4200">
+        <div class="hucho-narra" data-reveal="fade-up" data-delay="4800">
           <div class="hucho-narra__header">
             <img class="avatar" src="images/avatars/hucho.png" alt="Hucho" onerror="this.style.display='none'">
             <span class="hucho-narra__label">HUCHO NARRA</span>
           </div>
-          <p>No le grité. Quería gritarle. Quería agarrarlo del cuello y estrellarlo contra la pared. Pero el coraje es un lujo de la gente que no tiene miedo, y yo tengo miedo todo el puto tiempo. Así que hice lo que hacen los que tienen miedo: calcular. Recalcular. El plan B ya estaba corriendo en mi cabeza antes de que Paco terminara de decir «sí».</p>
+          <p>No le grité. Quería gritarle. Quería agarrarlo del cuello y estrellarlo contra la pared. Me sudaban las manos. Las rodillas me temblaban debajo del escritorio donde Paco no podía verlas. Sentía el pulso en las orejas — tan fuerte que casi no escuché las sirenas acercándose.</p>
+          <p>Pero el coraje es un lujo de la gente que no tiene miedo, y yo tengo miedo todo el puto tiempo. Así que hice lo que hacen los que tienen miedo: calcular. Recalcular. El plan B ya estaba corriendo en mi cabeza antes de que Paco terminara de decir «sí».</p>
           <p>Lo peligroso de mí no es que sea valiente. Es que el miedo me hace más preciso.</p>
         </div>
 
-        <div class="inner-voice" data-reveal="fade-up" data-delay="3400">
+        <div class="inner-voice" data-reveal="glitch" data-delay="5200">
           <div class="inner-voice__header">DENTRO DE LA MENTE DE HUCHO</div>
-          <div class="inner-voice__grid">
-            <div class="inner-voice__a">
-              <span class="inner-voice__label">⚡ EL VISIONARIO</span>
-              <p>«El plan cambia. Nos separamos. Punto de encuentro. Tú ya sabes dónde. El error de Paco es útil — ahora los buscan a dos changos, no a un asalto financiero. Que busquen disfraces mientras nosotros movemos dinero.»</p>
-            </div>
-            <div class="inner-voice__b">
-              <span class="inner-voice__label">💧 EL COBARDE</span>
-              <p>(Quiero vomitar otra vez. Las piernas no me responden. Si abro la boca me va a temblar la voz y Paco se va a dar cuenta de que estoy igual de cagado que él. No puedo. No puedo. Respira, cabrón. Respira y calcula.)</p>
-            </div>
+          <div class="inner-voice__body">
+            <span class="voice-fear">(Quiero vomitar otra vez. Las piernas no me responden. Si abro la boca me va a temblar la voz y Paco va a ver que no soy el líder que cree que soy.)</span>
+            <span class="voice-vision">«El plan cambia. Nos separamos. Punto de encuentro.»</span>
+            <span class="voice-fear">(No puedo. No puedo. Respira, cabrón. Respira y calcula.)</span>
+            <span class="voice-vision">«El error de Paco es útil — ahora los buscan a dos changos, no a un asalto financiero. Que busquen disfraces mientras nosotros movemos dinero.»</span>
+            <span class="voice-fear voice-fear--tape">(Las sirenas. Las pinches sirenas. Se acercan o se alejan. No puedo distinguir. Todo se oye igual cuando tienes el corazón en la garganta.)</span>
           </div>
         </div>
 
-        <div class="paco-narra" data-reveal="fade-up" data-delay="4700">
+        <div class="paco-narra" data-reveal="fade-up" data-delay="5500">
           <div class="paco-narra__header">
             <img class="avatar" src="images/avatars/paco.png" alt="Paco" onerror="this.style.display='none'">
             <span class="paco-narra__label">PACO NARRA</span>
@@ -325,16 +361,36 @@
           <p>Yo me metí en el ducto del aire acondicionado. Ahí, acostado en la oscuridad, con la mochila de 72,000 pesos pegada al pecho y el sonido de las sirenas subiendo por las calles, esperé. Sabíamos que se irían pronto — no había sospechas de robo aún.</p>
         </div>
 
-        <div class="manifesto" data-reveal="fade-up" data-delay="4900">
+        <div class="hucho-narra" data-reveal="fade-up" data-delay="5700">
+          <div class="hucho-narra__header">
+            <img class="avatar" src="images/avatars/hucho.png" alt="Hucho" onerror="this.style.display='none'">
+            <span class="hucho-narra__label">HUCHO NARRA</span>
+          </div>
           <p>El dinero es el lenguaje del control. Cada billete es una orden: trabaja, consume, obedece, muere. El asalto no es un crimen — es una corrección gramatical en un idioma que nadie pidió hablar.</p>
         </div>
 
-        <div class="mini-cita" data-reveal="fade-up" data-delay="5100">
+        <div class="mini-cita" data-reveal="fade-up" data-delay="5900">
           «La libertad sin socialismo es privilegio e injusticia; el socialismo sin libertad es esclavitud y brutalidad.»
           <span class="mini-cita__author">— Mijaíl Bakunin</span>
         </div>
 
-        <div class="scroll-indicator" data-reveal="fade-up" data-delay="5300" aria-hidden="true">▼</div>
+        <div class="scroll-indicator" data-reveal="fade-up" data-delay="6100" aria-hidden="true">▼</div>
+      </div>
+    </section>
+
+    <!-- INTERMEZZO I -->
+    <section class="panel panel--intermezzo" aria-label="Intermezzo">
+      <div class="panel__content stack stack--loose text-center">
+        <div class="intermezzo-quote" data-reveal="fade-up">
+          «La pasión por la destrucción es también una pasión creativa.»
+          <span class="intermezzo-quote__author">— Mijaíl Bakunin</span>
+        </div>
+        <div class="narrator" data-reveal="fade-up" data-delay="800">
+          Salieron del edificio por rutas separadas. Hucho por las escaleras de emergencia — sin correr, sin voltear, con la calma calculada de alguien que lleva toda la vida ensayando una huida. Paco se quedó una hora más en el ducto del aire acondicionado, con 72 mil pesos pegados al pecho y el corazón tratando de salirse por la boca. Cuando por fin salió, la ciudad seguía igual. Eso fue lo más aterrador: que el mundo no se había enterado.
+        </div>
+        <div class="manifesto" data-reveal="fade-up" data-delay="1500" style="max-width: 500px; margin: 1.5rem auto 0; text-align: center;">
+          <p>El sistema no se reforma. Se interrumpe. Y toda interrupción empieza con alguien lo suficientemente pendejo como para creer que un chimpancé de plástico puede cambiar el mundo.</p>
+        </div>
       </div>
     </section>
 
@@ -401,6 +457,19 @@
         </div>
 
         <div class="scroll-indicator" data-reveal="fade-up" data-delay="2000" aria-hidden="true">▼</div>
+      </div>
+    </section>
+
+    <!-- INTERMEZZO II -->
+    <section class="panel panel--intermezzo" aria-label="Intermezzo">
+      <div class="panel__content stack stack--loose text-center">
+        <div class="intermezzo-quote" data-reveal="fade-up">
+          «Mírame de arriba y ves un tonto. Mírame de abajo y ves a un dios. Mírame de frente y te ves a ti mismo.»
+          <span class="intermezzo-quote__author">— Charles Manson</span>
+        </div>
+        <div class="narrator" data-reveal="fade-up" data-delay="800">
+          Paco caminó seis horas por la carretera federal con los zapatos de un traje que no estaba diseñado para huir. El campamento del kilómetro 40 era un punto de encuentro viejo — de los tiempos en que Hucho todavía creía que las revoluciones se organizan, no se improvisan. Ahí esperaba gente que no conocía, unidos por la misma fe ciega en un plan que ninguno de ellos había visto completo.
+        </div>
       </div>
     </section>
 
@@ -571,21 +640,32 @@
           <p>Me oriné. Ahí acostado en esa cajuela, viendo la luz blanca filtrarse por las rendijas, me oriné como un niño de tres años en su primera tormenta. Y eso, por alguna razón, me calmó. Porque cuando ya no te queda dignidad, tampoco te queda miedo. Y sin miedo, puedo pensar. Y cuando pienso, soy peligroso.</p>
         </div>
 
-        <div class="inner-voice" data-reveal="fade-up" data-delay="10000">
+        <div class="inner-voice" data-reveal="glitch" data-delay="10000">
           <div class="inner-voice__header">DENTRO DE LA MENTE DE HUCHO</div>
-          <div class="inner-voice__grid">
-            <div class="inner-voice__a">
-              <span class="inner-voice__label">⚡ EL VISIONARIO</span>
-              <p>«Toda estructura podrida necesita un detonante. No pedimos permiso para nacer — ¿por qué pediríamos permiso para destruir?»</p>
-            </div>
-            <div class="inner-voice__b">
-              <span class="inner-voice__label">💧 EL COBARDE</span>
-              <p>(No mames no mames no mames. Estoy llorando. No puedo parar. Tengo los ojos cerrados y las manos sobre los oídos como un niño durante los cuetes de año nuevo. No tengo palabras. No tengo nada. Verga.)</p>
-            </div>
+          <div class="inner-voice__body">
+            <span class="voice-fear">(No mames no mames no mames. Estoy llorando. No puedo parar. Tengo los ojos cerrados y las manos sobre los oídos como un niño durante los cuetes de año nuevo.)</span>
+            <span class="voice-fear">(No tengo palabras. No tengo nada. Verga. Verga. Verga.)</span>
+            <span class="voice-fear">(Silencio. Por primera vez en mi vida, silencio adentro.)</span>
+            <span class="voice-vision">«Toda estructura podrida necesita un detonante.»</span>
+            <span class="voice-vision">«No pedimos permiso para nacer — ¿por qué pediríamos permiso para destruir?»</span>
+            <span class="voice-vision voice-vision--loud">«EL PLAN NO MUERE. EL PLAN MUTA.»</span>
           </div>
         </div>
 
         <div class="scroll-indicator" data-reveal="fade-up" data-delay="10500" aria-hidden="true">▼</div>
+      </div>
+    </section>
+
+    <!-- INTERMEZZO III -->
+    <section class="panel panel--intermezzo" aria-label="Intermezzo">
+      <div class="panel__content stack stack--loose text-center">
+        <div class="intermezzo-quote" data-reveal="fade-up">
+          «El elemento más violento de la sociedad es la ignorancia.»
+          <span class="intermezzo-quote__author">— Emma Goldman</span>
+        </div>
+        <div class="narrator" data-reveal="fade-up" data-delay="800">
+          En los segundos después de la explosión, el campamento se vació. Cada quien corrió hacia donde creyó que estaba la vida. La maestra rural sabía de una pista de aterrizaje clandestina a cuatro kilómetros entre la maleza. Ahí esperaba un piloto que había perdido su licencia, su esposa y su sobriedad — en ese orden — calentando los motores de un Cessna del 78 que no debería haber despegado jamás. Subieron cinco. No hubo discusión. No hubo plan. Solo la urgencia animal de alejarse de la luz blanca.
+        </div>
       </div>
     </section>
 
@@ -647,20 +727,17 @@
           <p>Pero la avioneta no se detuvo. Seguía bajando. Vi la tenue luz de la superficie apagarse conforme bajábamos más y más. Habíamos caído en el Baikal. Sin duda. Ese lago no tiene fondo.</p>
         </div>
 
-        <p class="whisper" data-reveal="fade-up" data-delay="1600">
-          (así que esto es morir... no duele... solo pesa... pesa mucho... como una deuda que nunca terminas de pagar...)
-        </p>
-
-        <div class="fragment" data-reveal="fade-up" data-delay="1900">
-          <span>El agua entra por la nariz y sabe a tierra y a tiempo.</span>
-          <span>Los 72,000 pesos flotan como peces muertos, verdes y absurdos.</span>
-          <span>La máscara de chimpancé se despega y se hunde antes que yo.</span>
-          <span>Hucho no dice nada. Por primera vez, las dos voces callan.</span>
+        <div class="inner-voice" data-reveal="glitch" data-delay="1600">
+          <div class="inner-voice__header">DENTRO DE LA MENTE DE PACO</div>
+          <div class="inner-voice__body">
+            <span class="voice-fear">(así que esto es morir... no duele... solo pesa... pesa mucho... como una deuda que nunca terminas de pagar...)</span>
+            <span class="voice-fear">(el agua entra por la nariz y sabe a tierra y a tiempo...)</span>
+            <span class="voice-fear">(los 72,000 pesos flotan como peces muertos, verdes y absurdos...)</span>
+            <span class="voice-fear">(la máscara de chimpancé se despega y se hunde antes que yo...)</span>
+            <span class="voice-fear">(Hucho no dice nada. Por primera vez, las dos voces callan.)</span>
+            <span class="voice-fear voice-fear--tape">(no puedo más... no puedo más... seguimos cayendo...)</span>
+          </div>
         </div>
-
-        <p class="whisper" data-reveal="fade-up" data-delay="2200">
-          (no puedo más... no puedo más... seguimos cayendo...)
-        </p>
 
         <img class="collage-cutout collage-cutout--sm collage-cutout--right"
              src="images/collages/collage_underwater.png"
@@ -742,6 +819,20 @@
     </section>
 
   </main>
+
+  <!-- Navigation arrows -->
+  <div class="nav-arrows" id="nav-arrows">
+    <button class="nav-arrow nav-arrow--back" id="back-arrow" aria-label="Retroceder">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 15 12 9 18 15"></polyline>
+      </svg>
+    </button>
+    <button class="nav-arrow nav-arrow--advance" id="advance-arrow" aria-label="Avanzar">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </button>
+  </div>
 
   <footer>
     <p>Inspirado en un sueño rebelde narrado por Paco y orquestado por Hucho.</p>
