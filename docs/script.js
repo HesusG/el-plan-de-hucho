@@ -168,7 +168,7 @@
     }
 
     // Scroll element into view
-    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     // Reveal after scroll settles
     setTimeout(function () {
@@ -216,7 +216,7 @@
 
     // Scroll to the now-current step
     var prevEl = allSteps[currentStep];
-    prevEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    prevEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     // Show advance arrow again if it was hidden
     if (advanceBtn) advanceBtn.classList.remove('hidden');
